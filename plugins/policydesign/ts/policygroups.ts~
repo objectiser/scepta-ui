@@ -1,8 +1,0 @@
-/// <reference path="designerPlugin.ts"/>
-module Designer {
-
-  export var PolicyGroupsController = _module.controller("Designer.PolicyGroupsController", ['$scope', '$routeParams', ($scope, $routeParams) => {
-    $scope.target = "Organizations World!";
-  }]);
-
-}
