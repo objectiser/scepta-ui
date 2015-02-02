@@ -24,15 +24,13 @@ bower install
 Note: See [installing npm]() for instructions on how to install _npm_, and [installing bower](http://bower.io/#install-bower) if _bower_ is not on your system.
 
 
-## Locally testing
-
-Run the following command to start up a test web server:
+Run the following command to build and start up a test web server:
 
 ```
 gulp
 ```
 
-and when ready, it will indicate that a browser should be opened at: http://localhost:2772
+and when ready, it will indicate that a browser should be opened at: [http://localhost:2772]
 
 However to properly develop and test the UI you will also need to startup a SCEPTA server to respond to the REST calls.
 
