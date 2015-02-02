@@ -1,0 +1,13 @@
+/// <reference path="designerPlugin.ts"/>
+module Designer {
+
+  export var OrganizationsController = _module.controller("Designer.OrganizationsController", ['$scope', '$http', ($scope, $http) => {
+    $scope.target = "Organizations World!";
+
+    $http.get('http://localhost:8080/policy-dev-server').success(function(data) {
+      $scope.organizations = data;
+    });
+
+  }]);
+
+}

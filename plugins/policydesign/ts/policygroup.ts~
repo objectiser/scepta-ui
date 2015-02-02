@@ -1,0 +1,21 @@
+/// <reference path="designerPlugin.ts"/>
+module Designer {
+
+  export var PolicyGroupController = _module.controller("Designer.PolicyGroupController", ['$scope', '$routeParams', '$http', ($scope, $routeParams, $http) => {
+    $scope.organizationName = $routeParams.organization;
+    $scope.policyGroupName = $routeParams.policygroup;
+
+    $http.get('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName).success(function(data) {
+      $scope.policygroup = data;
+    });
+
+    $http.get('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy').success(function(data) {
+      $scope.policies = data;
+    });
+
+    $scope.updatePolicyGroup = function() {
+      return $http.post('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
+    };
+  }]);
+
+}

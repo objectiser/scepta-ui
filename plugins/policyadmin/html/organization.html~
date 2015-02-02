@@ -1,0 +1,24 @@
+<div class="row">
+
+  <div class="col-md-12" ng-controller="Designer.OrganizationController">
+    <ol class="breadcrumb">
+      <li><a href="/policy">Organizations</a></li>
+      <li class="active">{{organizationName}}</li>
+    </ol>
+
+    <h1>{{organizationName}}</h1>
+
+    <a href="#" editable-textarea="organization.description" e-rows="7" e-cols="120" onaftersave="updateOrganization()">
+        <pre><i>{{ organization.description || 'No description' }}</i></pre>
+    </a>
+
+    <p>List of policy groups for organization {{organizationName}}</p>
+    <ul>
+      <li ng-repeat="pg in policygroups">
+        <a href="/policy/{{organizationName}}/{{pg.name}}">{{pg.name}}</a>
+        <p><i>{{pg.description}}</i></p>
+      </li>
+    </ul>
+
+  </div>
+</div>
