@@ -1,23 +1,23 @@
 /// <reference path="../../includes.ts"/>
-/// <reference path="policyadminGlobals.ts"/>
-module PolicyAdmin {
+/// <reference path="sceptaAdminGlobals.ts"/>
+module SceptaAdmin {
 
-  export var _module = angular.module(PolicyAdmin.pluginName, ['xeditable']);
+  export var _module = angular.module(SceptaAdmin.pluginName, ['xeditable']);
 
   var tab = undefined;
 
   _module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', ($locationProvider, $routeProvider:ng.route.IRouteProvider, builder:HawtioMainNav.BuilderFactory) => {
     tab = builder.create()
-      .id(PolicyAdmin.pluginName)
+      .id(SceptaAdmin.pluginName)
       .title(() => "Policy Administration")
-      .href(() => "/policyadmin")
+      .href(() => "/admin")
       .build();
     builder.configureRouting($routeProvider, tab);
     $locationProvider.html5Mode(true);
     $routeProvider.
-      when('/policyadmin', {
-        templateUrl: 'plugins/policyadmin/html/policyadmin.html',
-        controller: 'PolicyAdmin.PolicyAdminController'
+      when('/admin', {
+        templateUrl: 'plugins/scepta-admin/html/sceptaAdmin.html',
+        controller: 'SceptaAdmin.SceptaAdminController'
       });
 
   }]);
@@ -31,5 +31,5 @@ module PolicyAdmin {
     log.debug("loaded");
   }]);
 
-  hawtioPluginLoader.addModule(PolicyAdmin.pluginName);
+  hawtioPluginLoader.addModule(SceptaAdmin.pluginName);
 }

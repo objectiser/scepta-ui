@@ -1,0 +1,47 @@
+/// <reference path="../../includes.ts"/>
+/// <reference path="sceptaDesignGlobals.ts"/>
+module SceptaDesign {
+
+  export var _module = angular.module(SceptaDesign.pluginName, ["xeditable"]);
+
+  var tab = undefined;
+
+  _module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', ($locationProvider, $routeProvider:ng.route.IRouteProvider, builder:HawtioMainNav.BuilderFactory) => {
+    tab = builder.create()
+      .id(SceptaDesign.pluginName)
+      .title(() => "Policy Design")
+      .href(() => "/design")
+      .build();
+    builder.configureRouting($routeProvider, tab);
+    $locationProvider.html5Mode(true);
+    $routeProvider.
+      when('/design', {
+        templateUrl: 'plugins/scepta-design/html/organizations.html',
+        controller: 'SceptaDesign.OrganizationsController'
+      }).
+      when('/design/:organization', {
+        templateUrl: 'plugins/scepta-design/html/organization.html',
+        controller: 'SceptaDesign.OrganizationController'
+      }).
+      when('/design/:organization/:policygroup', {
+        templateUrl: 'plugins/scepta-design/html/policygroup.html',
+        controller: 'SceptaDesign.PolicyGroupController'
+      }).
+      when('/design/:organization/:policygroup/:policy', {
+        templateUrl: 'plugins/scepta-design/html/policy.html',
+        controller: 'SceptaDesign.PolicyController'
+      });
+
+  }]);
+
+  _module.run(function(editableOptions) {
+      editableOptions.theme = 'bs3';
+  });
+
+  _module.run(['HawtioNav', (HawtioNav:HawtioMainNav.Registry) => {
+    HawtioNav.add(tab);
+    log.debug("loaded");
+  }]);
+
+  hawtioPluginLoader.addModule(SceptaDesign.pluginName);
+}

@@ -1,9 +1,9 @@
 <div class="row">
 
-  <div class="col-md-12" ng-controller="PolicyDesign.PolicyGroupController">
+  <div class="col-md-12" ng-controller="SceptaDesign.PolicyGroupController">
     <ol class="breadcrumb">
-      <li><a href="/policydesign">Organizations</a></li>
-      <li><a href="/policydesign/{{organizationName}}">{{organizationName}}</a></li>
+      <li><a href="/design">Organizations</a></li>
+      <li><a href="/design/{{organizationName}}">{{organizationName}}</a></li>
       <li class="active">{{policyGroupName}}</li>
     </ol>
 
@@ -15,7 +15,7 @@
     <p>List of policies for policy group {{policyGroupName}}</p>
     <ul>
       <li ng-repeat="pol in policies">
-        <a href="/policydesign/{{organizationName}}/{{policyGroupName}}/{{pol.name}}">{{pol.name}}</a>
+        <a href="/design/{{organizationName}}/{{policyGroupName}}/{{pol.name}}">{{pol.name}}</a>
         <p><i>{{pol.description}}</i></p>
       </li>
     </ul>
