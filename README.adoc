@@ -1,0 +1,37 @@
+= SCEPTA UI
+
+SCEPTA is an open source project for policy authoring, deployment, execution and monitoring.
+
+This repository provides the UI for the project, built using the http://hawt.io[hawt.io framework], https://angularjs.org[angular] and http://www.typescriptlang.org[typescript].
+
+
+
+== Building from source
+
+The first step is to fork and clone the project. Navigate to the https://github.com/scepta/scepta-ui[project repository] and press the Fork button to create a fork of the project under your own github account. Then create a local clone of your fork using:
+
+----
+git clone git@github.com:<your-username>/scepta-ui.git
+----
+
+Using a command window, go into the *scepta-ui* folder and issue the following commands:
+
+----
+npm install
+bower install
+----
+
+Note: See https://docs.npmjs.com/getting-started/installing-node[installing npm] for instructions on how to install *npm*, and http://bower.io/#install-bower[installing bower] if *bower* is not on your system.
+
+
+Run the following command to build and start up a test web server:
+
+----
+gulp
+----
+
+and when ready, it will indicate that a browser should be opened at: http://localhost:2772
+
+However to properly develop and test the UI you will also need to startup a SCEPTA server to respond to the REST calls.
+
+
