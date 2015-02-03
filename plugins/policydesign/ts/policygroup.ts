@@ -5,16 +5,16 @@ module PolicyDesign {
     $scope.organizationName = $routeParams.organization;
     $scope.policyGroupName = $routeParams.policygroup;
 
-    $http.get('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName).success(function(data) {
+    $http.get('http://localhost:8080/scepta-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName).success(function(data) {
       $scope.policygroup = data;
     });
 
-    $http.get('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy').success(function(data) {
+    $http.get('http://localhost:8080/scepta-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy').success(function(data) {
       $scope.policies = data;
     });
 
     $scope.updatePolicyGroup = function() {
-      return $http.post('http://localhost:8080/policy-dev-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
+      return $http.post('http://localhost:8080/scepta-server/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
     };
   }]);
 

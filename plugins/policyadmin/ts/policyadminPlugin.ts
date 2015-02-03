@@ -18,9 +18,6 @@ module PolicyAdmin {
       when('/policyadmin', {
         templateUrl: 'plugins/policyadmin/html/policyadmin.html',
         controller: 'PolicyAdmin.PolicyAdminController'
-      //}).
-      //otherwise({
-      //  redirectTo: '/policyadmin'
       });
 
   }]);

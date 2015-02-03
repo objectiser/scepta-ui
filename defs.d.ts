@@ -1,10 +1,10 @@
 /// <reference path="d.ts/includes.d.ts"/>
-/// <reference path="d.ts/policyadmin/ts/policyadminGlobals.d.ts"/>
-/// <reference path="d.ts/policyadmin/ts/policyadminPlugin.d.ts"/>
-/// <reference path="d.ts/policyadmin/ts/policyadmin.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/policydesignGlobals.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/policydesignPlugin.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/organization.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/organizations.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/policy.d.ts"/>
 /// <reference path="d.ts/policydesign/ts/policygroup.d.ts"/>
+/// <reference path="d.ts/policyadmin/ts/policyadminGlobals.d.ts"/>
+/// <reference path="d.ts/policyadmin/ts/policyadminPlugin.d.ts"/>
+/// <reference path="d.ts/policyadmin/ts/policyadmin.d.ts"/>
