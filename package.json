@@ -1,5 +1,5 @@
 {
-  "name": "scepta-plugin",
+  "name": "scepta",
   "version": "0.1.0",
   "devDependencies": {
     "bower": "^1.3.12",

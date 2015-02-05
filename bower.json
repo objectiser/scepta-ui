@@ -1,11 +1,11 @@
 {
-  "name": "scepta-plugin",
+  "name": "scepta",
   "version": "0.1.0",
   "keywords": [
     "hawtio"
   ],
   "main": [
-    "dist/scepta-plugin.js"
+    "dist/scepta.js"
   ],
   "ignore": [
     "**/.*",
