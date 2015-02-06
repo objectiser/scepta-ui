@@ -15,7 +15,7 @@ var SceptaAdmin;
     SceptaAdmin._module = angular.module(SceptaAdmin.pluginName, ['xeditable']);
     var tab = undefined;
     SceptaAdmin._module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', function ($locationProvider, $routeProvider, builder) {
-        tab = builder.create().id(SceptaAdmin.pluginName).title(function () { return "Policy Administration"; }).href(function () { return "/admin"; }).build();
+        tab = builder.create().id(SceptaAdmin.pluginName).title(function () { return "Policy Administration"; }).href(function () { return "/scepta-ui/admin"; }).build();
         builder.configureRouting($routeProvider, tab);
         $locationProvider.html5Mode(true);
         $routeProvider.when('/admin', {

@@ -1,6 +1,7 @@
 d.ts/
 node_modules/
 libs/
+target/
 
 *~
 

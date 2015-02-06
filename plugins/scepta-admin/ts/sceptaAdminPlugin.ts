@@ -10,7 +10,7 @@ module SceptaAdmin {
     tab = builder.create()
       .id(SceptaAdmin.pluginName)
       .title(() => "Policy Administration")
-      .href(() => "/admin")
+      .href(() => "/scepta-ui/admin")
       .build();
     builder.configureRouting($routeProvider, tab);
     $locationProvider.html5Mode(true);
