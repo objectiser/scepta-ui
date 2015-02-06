@@ -37,7 +37,7 @@ var SceptaAdmin;
 var SceptaAdmin;
 (function (SceptaAdmin) {
     SceptaAdmin.SceptaAdminController = SceptaAdmin._module.controller("SceptaAdmin.SceptaAdminController", ['$scope', '$http', function ($scope, $http) {
-        $http.get('http://localhost:8080/scepta-server/design').success(function (data) {
+        $http.get('/scepta-server/design').success(function (data) {
             $scope.organizations = data;
         });
     }]);
@@ -90,14 +90,14 @@ var SceptaDesign;
 (function (SceptaDesign) {
     SceptaDesign.OrganizationController = SceptaDesign._module.controller("SceptaDesign.OrganizationController", ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
         $scope.organizationName = $routeParams.organization;
-        $http.get('http://localhost:8080/scepta-server/design/' + $scope.organizationName).success(function (data) {
+        $http.get('/scepta-server/design/' + $scope.organizationName).success(function (data) {
             $scope.organization = data;
         });
-        $http.get('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group').success(function (data) {
+        $http.get('/scepta-server/design/' + $scope.organizationName + '/group').success(function (data) {
             $scope.policygroups = data;
         });
         $scope.updateOrganization = function () {
-            return $http.post('http://localhost:8080/scepta-server/design/' + $scope.organizationName, $scope.organization);
+            return $http.post('/scepta-server/design/' + $scope.organizationName, $scope.organization);
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
@@ -106,7 +106,7 @@ var SceptaDesign;
 var SceptaDesign;
 (function (SceptaDesign) {
     SceptaDesign.OrganizationsController = SceptaDesign._module.controller("SceptaDesign.OrganizationsController", ['$scope', '$http', function ($scope, $http) {
-        $http.get('http://localhost:8080/scepta-server/design').success(function (data) {
+        $http.get('/scepta-server/design').success(function (data) {
             $scope.organizations = data;
         });
     }]);
@@ -119,11 +119,11 @@ var SceptaDesign;
         $scope.organizationName = $routeParams.organization;
         $scope.policyGroupName = $routeParams.policygroup;
         $scope.policyName = $routeParams.policy;
-        $http.get('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName).success(function (data) {
+        $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName).success(function (data) {
             $scope.policy = data;
         });
         $scope.updatePolicy = function () {
-            return $http.post('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName, $scope.policy);
+            return $http.post('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName, $scope.policy);
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
@@ -134,14 +134,14 @@ var SceptaDesign;
     SceptaDesign.PolicyGroupController = SceptaDesign._module.controller("SceptaDesign.PolicyGroupController", ['$scope', '$routeParams', '$http', function ($scope, $routeParams, $http) {
         $scope.organizationName = $routeParams.organization;
         $scope.policyGroupName = $routeParams.policygroup;
-        $http.get('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName).success(function (data) {
+        $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName).success(function (data) {
             $scope.policygroup = data;
         });
-        $http.get('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy').success(function (data) {
+        $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy').success(function (data) {
             $scope.policies = data;
         });
         $scope.updatePolicyGroup = function () {
-            return $http.post('http://localhost:8080/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName, $scope.policygroup);
+            return $http.post('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName, $scope.policygroup);
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
