@@ -12,6 +12,9 @@
         <pre><i>{{ policygroup.description || 'No description' }}</i></pre>
     </a>
 
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Export policy group" ng-click="exportPolicyGroup()"><span class="pficon pficon-export"></span></button>
+
+    <p></p>
     <p>List of policies for policy group {{policyGroupName}}</p>
     <ul>
       <li ng-repeat="pol in policies">

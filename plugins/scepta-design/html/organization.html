@@ -12,6 +12,9 @@
         <pre><i>{{ organization.description || 'No description' }}</i></pre>
     </a>
 
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Import policy group"><span class="pficon pficon-import"></span></button>
+
+    <p></p>
     <p>List of policy groups for organization {{organizationName}}</p>
     <ul>
       <li ng-repeat="pg in policygroups">

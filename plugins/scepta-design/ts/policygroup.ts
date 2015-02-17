@@ -14,7 +14,12 @@ module SceptaDesign {
     });
 
     $scope.updatePolicyGroup = function() {
-      return $http.post('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
+      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
+    };
+
+    $scope.exportPolicyGroup = function() {
+      $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export').success(function(data) {
+      });
     };
   }]);
 

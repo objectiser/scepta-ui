@@ -2,7 +2,7 @@
 /// <reference path="sceptaDesignGlobals.ts"/>
 module SceptaDesign {
 
-  export var _module = angular.module(SceptaDesign.pluginName, ["xeditable"]);
+  export var _module = angular.module(SceptaDesign.pluginName, ["xeditable","ui.codemirror"]);
 
   var tab = undefined;
 

@@ -55,7 +55,7 @@ var SceptaDesign;
 /// <reference path="sceptaDesignGlobals.ts"/>
 var SceptaDesign;
 (function (SceptaDesign) {
-    SceptaDesign._module = angular.module(SceptaDesign.pluginName, ["xeditable"]);
+    SceptaDesign._module = angular.module(SceptaDesign.pluginName, ["xeditable", "ui.codemirror"]);
     var tab = undefined;
     SceptaDesign._module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', function ($locationProvider, $routeProvider, builder) {
         tab = builder.create().id(SceptaDesign.pluginName).title(function () { return "Policy Design"; }).href(function () { return "/design"; }).build();
@@ -97,7 +97,9 @@ var SceptaDesign;
             $scope.policygroups = data;
         });
         $scope.updateOrganization = function () {
-            return $http.post('/scepta-server/design/' + $scope.organizationName, $scope.organization);
+            return $http.put('/scepta-server/design/' + $scope.organizationName, $scope.organization);
+        };
+        $scope.importPolicyGroup = function () {
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
@@ -122,9 +124,20 @@ var SceptaDesign;
         $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName).success(function (data) {
             $scope.policy = data;
         });
+        $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName + '/definition').success(function (data) {
+            $scope.policyDefinition = data;
+        });
         $scope.updatePolicy = function () {
-            return $http.post('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName, $scope.policy);
+            return $http.put('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName, $scope.policy);
         };
+        $scope.editorOptions = {
+            lineWrapping: true,
+            lineNumbers: true,
+            mode: 'xml'
+        };
+        $scope.$watch("policyDefinition", function (newValue, oldValue) {
+            return $http.put('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/policy/' + $scope.policyName + '/definition', $scope.policyDefinition, { "headers": { "Content-Type": "text/plain" } });
+        });
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
 
@@ -141,13 +154,17 @@ var SceptaDesign;
             $scope.policies = data;
         });
         $scope.updatePolicyGroup = function () {
-            return $http.post('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName, $scope.policygroup);
+            return $http.put('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName, $scope.policygroup);
+        };
+        $scope.exportPolicyGroup = function () {
+            $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/export').success(function (data) {
+            });
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
 
 angular.module("scepta-templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("plugins/scepta-admin/html/sceptaAdmin.html","<div class=\"row\">\n  <div class=\"col-md-12\" ng-controller=\"SceptaAdmin.SceptaAdminController\">\n\n    <ul class=\"nav nav-tabs\">\n        <li ng-repeat=\"org in organizations\"><h1>{{org.name}}</h1>\n            <p><i>{{org.description}}</i></p>\n        </li>\n    </ui>\n\n  </div>\n</div>\n");
-$templateCache.put("plugins/scepta-design/html/organization.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.OrganizationController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li class=\"active\">{{organizationName}}</li>\n    </ol>\n\n    <h1>{{organizationName}}</h1>\n\n    <a href=\"#\" editable-textarea=\"organization.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updateOrganization()\">\n        <pre><i>{{ organization.description || \'No description\' }}</i></pre>\n    </a>\n\n    <p>List of policy groups for organization {{organizationName}}</p>\n    <ul>\n      <li ng-repeat=\"pg in policygroups\">\n        <a href=\"/design/{{organizationName}}/{{pg.name}}\">{{pg.name}}</a>\n        <p><i>{{pg.description}}</i></p>\n      </li>\n    </ul>\n\n  </div>\n</div>\n");
+$templateCache.put("plugins/scepta-design/html/organization.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.OrganizationController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li class=\"active\">{{organizationName}}</li>\n    </ol>\n\n    <h1>{{organizationName}}</h1>\n\n    <a href=\"#\" editable-textarea=\"organization.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updateOrganization()\">\n        <pre><i>{{ organization.description || \'No description\' }}</i></pre>\n    </a>\n\n    <button type=\"button\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"\" data-original-title=\"Import policy group\"><span class=\"pficon pficon-import\"></span></button>\n\n    <p></p>\n    <p>List of policy groups for organization {{organizationName}}</p>\n    <ul>\n      <li ng-repeat=\"pg in policygroups\">\n        <a href=\"/design/{{organizationName}}/{{pg.name}}\">{{pg.name}}</a>\n        <p><i>{{pg.description}}</i></p>\n      </li>\n    </ul>\n\n  </div>\n</div>\n");
 $templateCache.put("plugins/scepta-design/html/organizations.html","<div class=\"row\">\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.OrganizationsController\">\n    <h1>Organizations</h1>\n\n    <ul>\n      <li ng-repeat=\"org in organizations\">\n        <a href=\"/design/{{org.name}}\">{{org.name}}</a>\n        <p>{{org.description}}</p>\n      </li>\n    </ul>\n  </div>\n</div>\n");
-$templateCache.put("plugins/scepta-design/html/policy.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.PolicyController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li><a href=\"/design/{{organizationName}}/{{policyGroupName}}\">{{policyGroupName}}</a></li>\n      <li class=\"active\">{{policyName}}</li>\n    </ol>\n\n    <h1>{{policyName}}</h1>\n    <a href=\"#\" editable-textarea=\"policy.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updatePolicy()\">\n        <pre><i>{{ policy.description || \'No description\' }}</i></pre>\n    </a>\n\n  </div>\n</div>\n");
-$templateCache.put("plugins/scepta-design/html/policygroup.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.PolicyGroupController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li class=\"active\">{{policyGroupName}}</li>\n    </ol>\n\n    <h1>{{policyGroupName}}</h1>\n    <a href=\"#\" editable-textarea=\"policygroup.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updatePolicyGroup()\">\n        <pre><i>{{ policygroup.description || \'No description\' }}</i></pre>\n    </a>\n\n    <p>List of policies for policy group {{policyGroupName}}</p>\n    <ul>\n      <li ng-repeat=\"pol in policies\">\n        <a href=\"/design/{{organizationName}}/{{policyGroupName}}/{{pol.name}}\">{{pol.name}}</a>\n        <p><i>{{pol.description}}</i></p>\n      </li>\n    </ul>\n\n  </div>\n</div>\n");}]); hawtioPluginLoader.addModule("scepta-templates");
+$templateCache.put("plugins/scepta-design/html/policy.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.PolicyController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li><a href=\"/design/{{organizationName}}/{{policyGroupName}}\">{{policyGroupName}}</a></li>\n      <li class=\"active\">{{policyName}}</li>\n    </ol>\n\n    <h1>{{policyName}}</h1>\n    <a href=\"#\" editable-textarea=\"policy.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updatePolicy()\">\n        <pre><i>{{ policy.description || \'No description\' }}</i></pre>\n    </a>\n\n    <ui-codemirror ui-codemirror-opts=\"editorOptions\" ng-model=\"policyDefinition\" ></ui-codemirror>\n\n  </div>\n</div>\n");
+$templateCache.put("plugins/scepta-design/html/policygroup.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.PolicyGroupController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li class=\"active\">{{policyGroupName}}</li>\n    </ol>\n\n    <h1>{{policyGroupName}}</h1>\n    <a href=\"#\" editable-textarea=\"policygroup.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updatePolicyGroup()\">\n        <pre><i>{{ policygroup.description || \'No description\' }}</i></pre>\n    </a>\n\n    <button type=\"button\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"\" data-original-title=\"Export policy group\" ng-click=\"exportPolicyGroup()\"><span class=\"pficon pficon-export\"></span></button>\n\n    <p></p>\n    <p>List of policies for policy group {{policyGroupName}}</p>\n    <ul>\n      <li ng-repeat=\"pol in policies\">\n        <a href=\"/design/{{organizationName}}/{{policyGroupName}}/{{pol.name}}\">{{pol.name}}</a>\n        <p><i>{{pol.description}}</i></p>\n      </li>\n    </ul>\n\n  </div>\n</div>\n");}]); hawtioPluginLoader.addModule("scepta-templates");

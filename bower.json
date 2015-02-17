@@ -21,7 +21,8 @@
     "hawtio-core-navigation": "~2.0.0",
     "hawtio-utilities": "~2.0.0",
     "angular-xeditable": "~0.x",
-    "webcomponentsjs": "~0.x"
+    "webcomponentsjs": "~0.x",
+    "angular-ui-codemirror": "~0.2.3"
   },
   "devDependencies": {
     "bootstrap": "~3.3.1",

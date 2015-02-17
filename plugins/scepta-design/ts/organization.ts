@@ -13,7 +13,10 @@ module SceptaDesign {
     });
 
     $scope.updateOrganization = function() {
-      return $http.post('/scepta-server/design/'+$scope.organizationName, $scope.organization);
+      return $http.put('/scepta-server/design/'+$scope.organizationName, $scope.organization);
+    };
+
+    $scope.importPolicyGroup = function() {
     };
   }]);
 

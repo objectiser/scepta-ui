@@ -10,9 +10,23 @@ module SceptaDesign {
       $scope.policy = data;
     });
 
+    $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName+'/definition').success(function(data) {
+      $scope.policyDefinition = data;
+    });
+
     $scope.updatePolicy = function() {
-      return $http.post('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName, $scope.policy);
+      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName, $scope.policy);
     };
+
+    $scope.editorOptions = {
+      lineWrapping : true,
+      lineNumbers: true,
+      mode: 'xml'
+    };
+
+    $scope.$watch("policyDefinition", function(newValue, oldValue) {
+      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName+'/definition', $scope.policyDefinition, { "headers": { "Content-Type": "text/plain" } });
+    });
   }]);
 
 }
