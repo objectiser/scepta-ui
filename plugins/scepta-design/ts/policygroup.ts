@@ -18,8 +18,7 @@ module SceptaDesign {
     };
 
     $scope.exportPolicyGroup = function() {
-      $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export').success(function(data) {
-      });
+      window.open('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export', 'export');
     };
   }]);
 

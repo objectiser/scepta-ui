@@ -157,8 +157,7 @@ var SceptaDesign;
             return $http.put('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName, $scope.policygroup);
         };
         $scope.exportPolicyGroup = function () {
-            $http.get('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/export').success(function (data) {
-            });
+            window.open('/scepta-server/design/' + $scope.organizationName + '/group/' + $scope.policyGroupName + '/export', 'export');
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
