@@ -29,6 +29,7 @@ module SceptaDesign {
     };
 
     $scope.addResource = function(resource) {
+      console.log("New resource="+resource.name);
       $scope.policy.resources.push(resource);
       $scope.updatePolicy();
     };
