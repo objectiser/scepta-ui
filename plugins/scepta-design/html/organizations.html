@@ -3,7 +3,7 @@
     <h1>Organizations</h1>
 
     <ul>
-      <li ng-repeat="org in organizations">
+      <li ng-repeat="org in organizations | orderBy:nameOrderProp">
         <a href="/design/{{org.name}}">{{org.name}}</a>
         <p>{{org.description}}</p>
       </li>

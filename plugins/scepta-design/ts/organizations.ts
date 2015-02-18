@@ -7,6 +7,8 @@ module SceptaDesign {
       $scope.organizations = data;
     });
 
+    $scope.nameOrderProp = 'name';
+
   }]);
 
 }

@@ -28,6 +28,9 @@ module SceptaDesign {
       mode: 'xml'
     };
 
+    $scope.resourceOrderProp = 'name';
+    $scope.dependencyOrderProp = 'artifactId';
+
     $scope.addResource = function() {
       $scope.policy.resources.push($scope.resource);
       $scope.updatePolicy();

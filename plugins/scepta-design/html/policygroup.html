@@ -17,7 +17,7 @@
     <p></p>
     <p>List of policies for policy group {{policyGroupName}}</p>
     <ul>
-      <li ng-repeat="pol in policies">
+      <li ng-repeat="pol in policies | orderBy:nameOrderProp">
         <a href="/design/{{organizationName}}/{{policyGroupName}}/{{pol.name}}">{{pol.name}}</a>
         <p><i>{{pol.description}}</i></p>
       </li>

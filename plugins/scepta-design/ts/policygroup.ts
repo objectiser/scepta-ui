@@ -20,6 +20,9 @@ module SceptaDesign {
     $scope.exportPolicyGroup = function() {
       window.open('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export', 'export');
     };
+
+    $scope.nameOrderProp = 'name';
+
   }]);
 
 }

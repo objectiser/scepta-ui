@@ -18,6 +18,9 @@ module SceptaDesign {
 
     $scope.importPolicyGroup = function() {
     };
+
+    $scope.nameOrderProp = 'name';
+
   }]);
 
 }

@@ -34,6 +34,8 @@ module SceptaDesign {
       mode: 'text'
     };
 
+    $scope.dependencyOrderProp = 'artifactId';
+
     $scope.addDependency = function() {
       $scope.resource.dependencies.push($scope.dependency);
       $scope.updateResource();
