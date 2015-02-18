@@ -146,27 +146,32 @@ var SceptaDesign;
             $scope.updatePolicy();
         };
         $scope.removeResource = function (event) {
-            var resourceName = event.currentTarget.attributes.getNamedItem('resource').value;
-            for (var i = $scope.policy.resources.length - 1; i >= 0; i--) {
-                var r = $scope.policy.resources[i];
-                if (r.name === resourceName) {
-                    $scope.policy.resources.remove(r);
-                    $scope.updatePolicy();
+            var c = confirm("Are you sure?");
+            if (c == true) {
+                var resourceName = event.currentTarget.attributes.getNamedItem('resource').value;
+                for (var i = $scope.policy.resources.length - 1; i >= 0; i--) {
+                    var r = $scope.policy.resources[i];
+                    if (r.name === resourceName) {
+                        $scope.policy.resources.remove(r);
+                        $scope.updatePolicy();
+                    }
                 }
             }
         };
         $scope.addDependency = function (dependency) {
-            console.log("New dependency=" + dependency.artifactId);
             $scope.policy.dependencies.push(dependency);
             $scope.updatePolicy();
         };
         $scope.removeDependency = function (event) {
-            var dependency = JSON.parse(event.currentTarget.attributes.getNamedItem('dependency').value);
-            for (var i = $scope.policy.dependencies.length - 1; i >= 0; i--) {
-                var d = $scope.policy.dependencies[i];
-                if (d.groupId === dependency.groupId && d.artifactId === dependency.artifactId) {
-                    $scope.policy.dependencies.remove(d);
-                    $scope.updatePolicy();
+            var c = confirm("Are you sure?");
+            if (c == true) {
+                var dependency = JSON.parse(event.currentTarget.attributes.getNamedItem('dependency').value);
+                for (var i = $scope.policy.dependencies.length - 1; i >= 0; i--) {
+                    var d = $scope.policy.dependencies[i];
+                    if (d.groupId === dependency.groupId && d.artifactId === dependency.artifactId) {
+                        $scope.policy.dependencies.remove(d);
+                        $scope.updatePolicy();
+                    }
                 }
             }
         };
