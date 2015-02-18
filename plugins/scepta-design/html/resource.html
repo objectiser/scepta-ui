@@ -1,0 +1,40 @@
+<div class="row">
+
+  <div class="col-md-12" ng-controller="SceptaDesign.ResourceController">
+    <ol class="breadcrumb">
+      <li><a href="/design">Organizations</a></li>
+      <li><a href="/design/{{organizationName}}">{{organizationName}}</a></li>
+      <li><a href="/design/{{organizationName}}/{{policyGroupName}}">{{policyGroupName}}</a></li>
+      <li><a href="/design/{{organizationName}}/{{policyGroupName}}/{{policyName}}">{{policyName}}</a></li>
+      <li class="active">{{resourceName}}</li>
+    </ol>
+
+    <h1>{{resourceName}}</h1>
+    <a href="#" editable-textarea="resource.description" e-rows="7" e-cols="120" onaftersave="updateResource()">
+        <pre><i>{{ resource.description || 'No description' }}</i></pre>
+    </a>
+
+      <div class="row">
+        <div class="col-sm-8 col-md-9">
+
+    <ui-codemirror ui-codemirror-opts="resourceEditorOptions" ng-model="resourceDefinition" ></ui-codemirror>
+
+        </div>
+        <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
+          <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
+            <div class="actions pull-right">
+              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add resource"><span class="pficon pficon-add"></span></button>
+            </div>
+            <h2 class="h5">Dependencies</h2>
+          </div>
+          <ul class="list-group">
+            <li ng-repeat="dep in resource.dependencies">
+              <h3>{{dep.artifactId}}</h3>
+              <p><i>Group: {{dep.groupId}}</i></p>
+              <p><i>Version: {{dep.version}}</i></p>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</div>

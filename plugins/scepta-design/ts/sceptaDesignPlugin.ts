@@ -30,6 +30,10 @@ module SceptaDesign {
       when('/design/:organization/:policygroup/:policy', {
         templateUrl: 'plugins/scepta-design/html/policy.html',
         controller: 'SceptaDesign.PolicyController'
+      }).
+      when('/design/:organization/:policygroup/:policy/:resource', {
+        templateUrl: 'plugins/scepta-design/html/resource.html',
+        controller: 'SceptaDesign.ResourceController'
       });
 
   }]);

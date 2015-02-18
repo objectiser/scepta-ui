@@ -12,6 +12,10 @@ module SceptaDesign {
 
     $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName+'/definition').success(function(data) {
       $scope.policyDefinition = data;
+
+      $scope.$watch("policyDefinition", function(newValue, oldValue) {
+        return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName+'/definition', $scope.policyDefinition, { "headers": { "Content-Type": "text/plain" } });
+      });
     });
 
     $scope.updatePolicy = function() {
@@ -24,9 +28,6 @@ module SceptaDesign {
       mode: 'xml'
     };
 
-    $scope.$watch("policyDefinition", function(newValue, oldValue) {
-      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy/'+$scope.policyName+'/definition', $scope.policyDefinition, { "headers": { "Content-Type": "text/plain" } });
-    });
   }]);
 
 }

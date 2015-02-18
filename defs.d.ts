@@ -8,3 +8,4 @@
 /// <reference path="d.ts/scepta-design/ts/organizations.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/policy.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/policygroup.d.ts"/>
+/// <reference path="d.ts/scepta-design/ts/resource.d.ts"/>
