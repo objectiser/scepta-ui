@@ -28,8 +28,8 @@
                  <form novalidate class="simple-form">
                    Name: <input type="text" ng-model="resource.name" /><br />
                    Description: <input type="description" ng-model="resource.description" /><br />
-                   <input type="button" ng-click="cancel()" value="Cancel" />
-                   <input type="submit" ng-click="addResource(resource)" value="Add" />
+                   <input type="button" value="Cancel" data-toggle="collapse" href="#addResourceForm" aria-expanded="false" aria-controls="addResourceForm"/>
+                   <input type="submit" ng-click="addResource(resource)" value="Add" data-toggle="collapse" href="#addResourceForm" aria-expanded="false" aria-controls="addResourceForm"/>
                  </form>
               </div>
             </div>

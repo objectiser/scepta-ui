@@ -33,6 +33,9 @@ module SceptaDesign {
       $scope.policy.resources.push(resource);
       $scope.updatePolicy();
     };
+
+    $scope.cancel = function() {
+    };
   }]);
 
 }

@@ -1,7 +1,4 @@
 /// <reference path="d.ts/includes.d.ts"/>
-/// <reference path="d.ts/scepta-admin/ts/sceptaAdminGlobals.d.ts"/>
-/// <reference path="d.ts/scepta-admin/ts/sceptaAdminPlugin.d.ts"/>
-/// <reference path="d.ts/scepta-admin/ts/sceptaAdmin.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/sceptaDesignGlobals.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/sceptaDesignPlugin.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/organization.d.ts"/>
@@ -9,3 +6,6 @@
 /// <reference path="d.ts/scepta-design/ts/policy.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/policygroup.d.ts"/>
 /// <reference path="d.ts/scepta-design/ts/resource.d.ts"/>
+/// <reference path="d.ts/scepta-admin/ts/sceptaAdminGlobals.d.ts"/>
+/// <reference path="d.ts/scepta-admin/ts/sceptaAdminPlugin.d.ts"/>
+/// <reference path="d.ts/scepta-admin/ts/sceptaAdmin.d.ts"/>
