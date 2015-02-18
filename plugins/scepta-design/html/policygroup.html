@@ -14,14 +14,43 @@
 
     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Export policy group" ng-click="exportPolicyGroup()"><span class="pficon pficon-export"></span></button>
 
+      <div class="row">
+        <div class="col-sm-8 col-md-9">
     <p></p>
     <p>List of policies for policy group {{policyGroupName}}</p>
     <ul>
       <li ng-repeat="pol in policies | orderBy:nameOrderProp">
-        <a href="/design/{{organizationName}}/{{policyGroupName}}/{{pol.name}}">{{pol.name}}</a>
+        <a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{pol.name}}">{{pol.name}}</a>
         <p><i>{{pol.description}}</i></p>
       </li>
     </ul>
+
+        </div>
+        <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
+          <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
+            <div class="actions pull-right">
+              <button type="button" class="btn btn-default" data-toggle="collapse" href="#addEndpointForm" aria-expanded="false" aria-controls="addEndpointForm"><span class="pficon pficon-add"></span></button>
+            </div>
+            <h2 class="h5">Endpoints</h2>
+            <div class="collapse" id="addEndpointForm">
+              <div class="well">
+                 <form novalidate class="simple-form">
+                   Name: <input type="text" ng-model="endpoint.name" /><br />
+                   Description: <input type="description" ng-model="endpoint.description" /><br />
+                   <input type="button" value="Cancel" data-toggle="collapse" href="#addEndpointForm" aria-expanded="false" aria-controls="addEndpointForm"/>
+                   <input type="submit" ng-click="addEndpoint()" value="Add" data-toggle="collapse" href="#addEndpointForm" aria-expanded="false" aria-controls="addEndpointForm"/>
+                 </form>
+              </div>
+            </div>
+          </div>
+          <ul class="list-group">
+            <li ng-repeat="ep in policygroup.endpoints | orderBy:nameOrderProp">
+              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/endpoint/{{ep.name}}">{{ep.name}}</a> <button type="button" class="btn btn-default" endpoint="{{ep.name}}" ng-click="removeEndpoint($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <p><i>{{ep.description}}</i></p>
+            </li>
+          </ul>
+        </div>
+      </div>
 
   </div>
 </div>

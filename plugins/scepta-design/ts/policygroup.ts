@@ -23,6 +23,26 @@ module SceptaDesign {
 
     $scope.nameOrderProp = 'name';
 
+    $scope.addEndpoint = function() {
+      $scope.policygroup.endpoints.push($scope.endpoint);
+      $scope.updatePolicyGroup();
+      $scope.endpoint = new Object();
+    };
+
+    $scope.removeEndpoint = function(event) {
+      var c = confirm("Are you sure?");
+      if (c == true) {
+        var endpointName = event.currentTarget.attributes.getNamedItem('endpoint').value;
+        for (var i = $scope.policygroup.endpoints.length - 1; i >= 0; i--) { 
+          var ep=$scope.policygroup.endpoints[i];     
+          if (ep.name === endpointName) {
+            $scope.policygroup.endpoints.remove(ep);
+            $scope.updatePolicyGroup();
+          }
+        }
+      } 
+    };
+
   }]);
 
 }

@@ -36,7 +36,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="res in policy.resources | orderBy:resourceOrderProp">
-              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/{{policyName}}/{{res.name}}">{{res.name}}</a> <button type="button" class="btn btn-default" resource="{{res.name}}" ng-click="removeResource($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{policyName}}/{{res.name}}">{{res.name}}</a> <button type="button" class="btn btn-default" resource="{{res.name}}" ng-click="removeResource($event)"><span class="pficon pficon-remove"></span></button></h3>
               <p><i>{{res.description}}</i></p>
             </li>
           </ul>
@@ -52,7 +52,7 @@
                    Artifact ID: <input type="text" ng-model="dependency.artifactId" /><br />
                    Version: <input type="text" ng-model="dependency.version" /><br />
                    <input type="button" value="Cancel" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"/>
-                   <input type="submit" ng-click="addDependency(dependency)" value="Add" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"/>
+                   <input type="submit" ng-click="addDependency()" value="Add" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"/>
                  </form>
               </div>
             </div>

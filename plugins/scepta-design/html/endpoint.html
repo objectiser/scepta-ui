@@ -1,43 +1,41 @@
 <div class="row">
 
-  <div class="col-md-12" ng-controller="SceptaDesign.ResourceController">
+  <div class="col-md-12" ng-controller="SceptaDesign.EndpointController">
     <ol class="breadcrumb">
       <li><a href="/design">Organizations</a></li>
       <li><a href="/design/{{organizationName}}">{{organizationName}}</a></li>
       <li><a href="/design/{{organizationName}}/{{policyGroupName}}">{{policyGroupName}}</a></li>
-      <li><a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{policyName}}">{{policyName}}</a></li>
-      <li class="active">{{resourceName}}</li>
+      <li class="active">{{endpointName}}</li>
     </ol>
 
-    <h1><b>{{resourceName}}</b> <a style="color:grey">Resource</a></h1>
-    <a href="#" editable-textarea="resource.description" e-rows="7" e-cols="120" onaftersave="updateResource()">
-        <pre><i>{{ resource.description || 'No description' }}</i></pre>
+    <h1><b>{{endpointName}}</b> <a style="color:grey">Endpoint</a></h1>
+    <a href="#" editable-textarea="endpoint.description" e-rows="7" e-cols="120" onaftersave="updateEndpoint()">
+        <pre><i>{{ endpoint.description || 'No description' }}</i></pre>
     </a>
 
       <div class="row">
         <div class="col-sm-8 col-md-9">
-          <ui-codemirror ui-codemirror-opts="resourceEditorOptions" ng-model="resourceDefinition" ></ui-codemirror>
         </div>
         <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
           <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
             <div class="actions pull-right">
-              <button type="button" class="btn btn-default" data-toggle="collapse" href="#addResourceDependencyForm" aria-expanded="false" aria-controls="addResourceDependencyForm"><span class="pficon pficon-add"></span></button>
+              <button type="button" class="btn btn-default" data-toggle="collapse" href="#addEndpointDependencyForm" aria-expanded="false" aria-controls="addEndpointDependencyForm"><span class="pficon pficon-add"></span></button>
             </div>
             <h2 class="h5">Dependencies</h2>
-            <div class="collapse" id="addResourceDependencyForm">
+            <div class="collapse" id="addEndpointDependencyForm">
               <div class="well">
                  <form novalidate class="simple-form">
                    Group ID: <input type="text" ng-model="dependency.groupId" /><br />
                    Artifact ID: <input type="text" ng-model="dependency.artifactId" /><br />
                    Version: <input type="text" ng-model="dependency.version" /><br />
-                   <input type="button" value="Cancel" data-toggle="collapse" href="#addResourceDependencyForm" aria-expanded="false" aria-controls="addResourceDependencyForm"/>
-                   <input type="submit" ng-click="addDependency()" value="Add" data-toggle="collapse" href="#addResourceDependencyForm" aria-expanded="false" aria-controls="addResourceDependencyForm"/>
+                   <input type="button" value="Cancel" data-toggle="collapse" href="#addEndpointDependencyForm" aria-expanded="false" aria-controls="addEndpointDependencyForm"/>
+                   <input type="submit" ng-click="addDependency()" value="Add" data-toggle="collapse" href="#addEndpointDependencyForm" aria-expanded="false" aria-controls="addEndpointDependencyForm"/>
                  </form>
               </div>
             </div>
           </div>
           <ul class="list-group">
-            <li ng-repeat="dep in resource.dependencies | orderBy:dependencyOrderProp">
+            <li ng-repeat="dep in endpoint.dependencies | orderBy:dependencyOrderProp">
               <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-remove"></span></button></h3>
               <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>
             </li>

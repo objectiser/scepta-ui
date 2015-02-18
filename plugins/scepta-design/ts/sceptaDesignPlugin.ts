@@ -27,11 +27,15 @@ module SceptaDesign {
         templateUrl: 'plugins/scepta-design/html/policygroup.html',
         controller: 'SceptaDesign.PolicyGroupController'
       }).
-      when('/design/:organization/:policygroup/:policy', {
+      when('/design/:organization/:policygroup/endpoint/:endpoint', {
+        templateUrl: 'plugins/scepta-design/html/endpoint.html',
+        controller: 'SceptaDesign.EndpointController'
+      }).
+      when('/design/:organization/:policygroup/policy/:policy', {
         templateUrl: 'plugins/scepta-design/html/policy.html',
         controller: 'SceptaDesign.PolicyController'
       }).
-      when('/design/:organization/:policygroup/:policy/:resource', {
+      when('/design/:organization/:policygroup/policy/:policy/:resource', {
         templateUrl: 'plugins/scepta-design/html/resource.html',
         controller: 'SceptaDesign.ResourceController'
       });
