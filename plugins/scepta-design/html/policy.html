@@ -42,15 +42,25 @@
           </ul>
           <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
             <div class="actions pull-right">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add resource"><span class="pficon pficon-add"></span></button>
+              <button type="button" class="btn btn-default" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"><span class="pficon pficon-add"></span></button>
             </div>
             <h2 class="h5">Dependencies</h2>
+            <div class="collapse" id="addDependencyForm">
+              <div class="well">
+                 <form novalidate class="simple-form">
+                   Group ID: <input type="text" ng-model="dependency.groupId" /><br />
+                   Artifact ID: <input type="text" ng-model="dependency.artifactId" /><br />
+                   Version: <input type="text" ng-model="dependency.version" /><br />
+                   <input type="button" value="Cancel" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"/>
+                   <input type="submit" ng-click="addDependency(dependency)" value="Add" data-toggle="collapse" href="#addDependencyForm" aria-expanded="false" aria-controls="addDependencyForm"/>
+                 </form>
+              </div>
+            </div>
           </div>
           <ul class="list-group">
             <li ng-repeat="dep in policy.dependencies">
               <h3>{{dep.artifactId}}</h3>
-              <p><i>Group: {{dep.groupId}}</i></p>
-              <p><i>Version: {{dep.version}}</i></p>
+              <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>
             </li>
           </ul>
         </div>

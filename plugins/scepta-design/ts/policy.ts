@@ -34,8 +34,12 @@ module SceptaDesign {
       $scope.updatePolicy();
     };
 
-    $scope.cancel = function() {
+    $scope.addDependency = function(dependency) {
+      console.log("New dependency="+dependency.artifactId);
+      $scope.policy.dependencies.push(dependency);
+      $scope.updatePolicy();
     };
+
   }]);
 
 }
