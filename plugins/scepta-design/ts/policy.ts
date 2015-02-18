@@ -28,6 +28,10 @@ module SceptaDesign {
       mode: 'xml'
     };
 
+    $scope.addResource = function(resource) {
+      $scope.policy.resources.push(resource);
+      $scope.updatePolicy();
+    };
   }]);
 
 }

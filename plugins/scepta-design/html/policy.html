@@ -22,9 +22,19 @@
         <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
           <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
             <div class="actions pull-right">
-              <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="" data-original-title="Add resource"><span class="pficon pficon-add"></span></button>
+              <button type="button" class="btn btn-default" data-toggle="collapse" href="#addResourceForm" aria-expanded="false" aria-controls="addResourceForm"><span class="pficon pficon-add"></span></button>
             </div>
             <h2 class="h5">Resources</h2>
+            <div class="collapse" id="addResourceForm">
+              <div class="well">
+                 <form novalidate class="simple-form">
+                   Name: <input type="text" ng-model="resource.name" /><br />
+                   Description: <input type="description" ng-model="resource.description" /><br />
+                   <input type="button" ng-click="cancel()" value="Cancel" />
+                   <input type="submit" ng-click="addResource(resource)" value="Add" />
+                 </form>
+              </div>
+            </div>
           </div>
           <ul class="list-group">
             <li ng-repeat="res in policy.resources">
@@ -50,4 +60,5 @@
         </div>
       </div>
   </div>
+
 </div>
