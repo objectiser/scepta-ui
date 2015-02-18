@@ -29,9 +29,19 @@ module SceptaDesign {
     };
 
     $scope.addResource = function(resource) {
-      console.log("New resource="+resource.name);
       $scope.policy.resources.push(resource);
       $scope.updatePolicy();
+    };
+
+    $scope.removeResource = function(event) {
+      var resourceName = event.currentTarget.attributes.getNamedItem('resource').value;
+      for (var i = $scope.policy.resources.length - 1; i >= 0; i--) { 
+        var r=$scope.policy.resources[i];     
+        if (r.name === resourceName) {
+          $scope.policy.resources.remove(r);
+          $scope.updatePolicy();
+        }
+      }
     };
 
     $scope.addDependency = function(dependency) {
