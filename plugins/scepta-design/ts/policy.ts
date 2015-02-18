@@ -40,6 +40,17 @@ module SceptaDesign {
       $scope.updatePolicy();
     };
 
+    $scope.removeDependency = function(event) {
+      var dependency = JSON.parse(event.currentTarget.attributes.getNamedItem('dependency').value);
+      for (var i = $scope.policy.dependencies.length - 1; i >= 0; i--) { 
+        var d=$scope.policy.dependencies[i];     
+        if (d.groupId === dependency.groupId && d.artifactId === dependency.artifactId) {
+          $scope.policy.dependencies.remove(d);
+          $scope.updatePolicy();
+        }
+      }
+    };
+
   }]);
 
 }
