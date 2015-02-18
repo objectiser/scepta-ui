@@ -34,16 +34,17 @@ module SceptaDesign {
       mode: 'text'
     };
 
-    $scope.addDependency = function(dependency) {
-      $scope.resource.dependencies.push(dependency);
+    $scope.addDependency = function() {
+      $scope.resource.dependencies.push($scope.dependency);
       $scope.updateResource();
+      $scope.dependency = new Object();
     };
 
     $scope.removeDependency = function(event) {
       var c = confirm("Are you sure?");
       if (c == true) {
         var dependency = JSON.parse(event.currentTarget.attributes.getNamedItem('dependency').value);
-        for (var i = $scope.policy.dependencies.length - 1; i >= 0; i--) { 
+        for (var i = $scope.resource.dependencies.length - 1; i >= 0; i--) { 
           var d=$scope.resource.dependencies[i];     
           if (d.groupId === dependency.groupId && d.artifactId === dependency.artifactId) {
             $scope.resource.dependencies.remove(d);

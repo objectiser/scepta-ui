@@ -28,9 +28,10 @@ module SceptaDesign {
       mode: 'xml'
     };
 
-    $scope.addResource = function(resource) {
-      $scope.policy.resources.push(resource);
+    $scope.addResource = function() {
+      $scope.policy.resources.push($scope.resource);
       $scope.updatePolicy();
+      $scope.resource = new Object();
     };
 
     $scope.removeResource = function(event) {
@@ -47,9 +48,10 @@ module SceptaDesign {
       } 
     };
 
-    $scope.addDependency = function(dependency) {
-      $scope.policy.dependencies.push(dependency);
+    $scope.addDependency = function() {
+      $scope.policy.dependencies.push($scope.dependency);
       $scope.updatePolicy();
+      $scope.dependency = new Object();
     };
 
     $scope.removeDependency = function(event) {
