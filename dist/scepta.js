@@ -1,49 +1,6 @@
 /// <reference path="../libs/hawtio-utilities/defs.d.ts"/>
 
 /// <reference path="../../includes.ts"/>
-var SceptaAdmin;
-(function (SceptaAdmin) {
-    SceptaAdmin.pluginName = "scepta-admin";
-    SceptaAdmin.log = Logger.get(SceptaAdmin.pluginName);
-    SceptaAdmin.templatePath = "plugins/scepta-admin/html";
-})(SceptaAdmin || (SceptaAdmin = {}));
-
-/// <reference path="../../includes.ts"/>
-/// <reference path="sceptaAdminGlobals.ts"/>
-var SceptaAdmin;
-(function (SceptaAdmin) {
-    SceptaAdmin._module = angular.module(SceptaAdmin.pluginName, ['xeditable']);
-    var tab = undefined;
-    SceptaAdmin._module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', function ($locationProvider, $routeProvider, builder) {
-        tab = builder.create().id(SceptaAdmin.pluginName).title(function () { return "Policy Administration"; }).href(function () { return "/admin"; }).build();
-        builder.configureRouting($routeProvider, tab);
-        $locationProvider.html5Mode(true);
-        $routeProvider.when('/admin', {
-            templateUrl: 'plugins/scepta-admin/html/sceptaAdmin.html',
-            controller: 'SceptaAdmin.SceptaAdminController'
-        });
-    }]);
-    SceptaAdmin._module.run(function (editableOptions) {
-        editableOptions.theme = 'bs3';
-    });
-    SceptaAdmin._module.run(['HawtioNav', function (HawtioNav) {
-        HawtioNav.add(tab);
-        SceptaAdmin.log.debug("loaded");
-    }]);
-    hawtioPluginLoader.addModule(SceptaAdmin.pluginName);
-})(SceptaAdmin || (SceptaAdmin = {}));
-
-/// <reference path="sceptaAdminPlugin.ts"/>
-var SceptaAdmin;
-(function (SceptaAdmin) {
-    SceptaAdmin.SceptaAdminController = SceptaAdmin._module.controller("SceptaAdmin.SceptaAdminController", ['$scope', '$http', function ($scope, $http) {
-        $http.get('/scepta-server/design').success(function (data) {
-            $scope.organizations = data;
-        });
-    }]);
-})(SceptaAdmin || (SceptaAdmin = {}));
-
-/// <reference path="../../includes.ts"/>
 var SceptaDesign;
 (function (SceptaDesign) {
     SceptaDesign.pluginName = "scepta-design";
@@ -137,6 +94,32 @@ var SceptaDesign;
         };
         $scope.reset = function () {
             $scope.editable = angular.copy($scope.endpoint);
+        };
+        $scope.selectedConsumerOption = function () {
+            $scope.editConsumerOption = {};
+            $scope.editConsumerOption.originalKey = this.key;
+            $scope.editConsumerOption.key = this.key;
+            $scope.editConsumerOption.value = this.value;
+        };
+        $scope.updateConsumerOption = function () {
+            if ($scope.editConsumerOption.originalKey !== undefined) {
+                delete $scope.editable.consumerOptions[$scope.editConsumerOption.originalKey];
+            }
+            $scope.editable.consumerOptions[$scope.editConsumerOption.key] = $scope.editConsumerOption.value;
+            $scope.editConsumerOption = undefined;
+        };
+        $scope.selectedProducerOption = function () {
+            $scope.editProducerOption = {};
+            $scope.editProducerOption.originalKey = this.key;
+            $scope.editProducerOption.key = this.key;
+            $scope.editProducerOption.value = this.value;
+        };
+        $scope.updateProducerOption = function () {
+            if ($scope.editProducerOption.originalKey !== undefined) {
+                delete $scope.editable.producerOptions[$scope.editProducerOption.originalKey];
+            }
+            $scope.editable.producerOptions[$scope.editProducerOption.key] = $scope.editProducerOption.value;
+            $scope.editProducerOption = undefined;
         };
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
@@ -329,8 +312,51 @@ var SceptaDesign;
     }]);
 })(SceptaDesign || (SceptaDesign = {}));
 
+/// <reference path="../../includes.ts"/>
+var SceptaAdmin;
+(function (SceptaAdmin) {
+    SceptaAdmin.pluginName = "scepta-admin";
+    SceptaAdmin.log = Logger.get(SceptaAdmin.pluginName);
+    SceptaAdmin.templatePath = "plugins/scepta-admin/html";
+})(SceptaAdmin || (SceptaAdmin = {}));
+
+/// <reference path="../../includes.ts"/>
+/// <reference path="sceptaAdminGlobals.ts"/>
+var SceptaAdmin;
+(function (SceptaAdmin) {
+    SceptaAdmin._module = angular.module(SceptaAdmin.pluginName, ['xeditable']);
+    var tab = undefined;
+    SceptaAdmin._module.config(['$locationProvider', '$routeProvider', 'HawtioNavBuilderProvider', function ($locationProvider, $routeProvider, builder) {
+        tab = builder.create().id(SceptaAdmin.pluginName).title(function () { return "Policy Administration"; }).href(function () { return "/admin"; }).build();
+        builder.configureRouting($routeProvider, tab);
+        $locationProvider.html5Mode(true);
+        $routeProvider.when('/admin', {
+            templateUrl: 'plugins/scepta-admin/html/sceptaAdmin.html',
+            controller: 'SceptaAdmin.SceptaAdminController'
+        });
+    }]);
+    SceptaAdmin._module.run(function (editableOptions) {
+        editableOptions.theme = 'bs3';
+    });
+    SceptaAdmin._module.run(['HawtioNav', function (HawtioNav) {
+        HawtioNav.add(tab);
+        SceptaAdmin.log.debug("loaded");
+    }]);
+    hawtioPluginLoader.addModule(SceptaAdmin.pluginName);
+})(SceptaAdmin || (SceptaAdmin = {}));
+
+/// <reference path="sceptaAdminPlugin.ts"/>
+var SceptaAdmin;
+(function (SceptaAdmin) {
+    SceptaAdmin.SceptaAdminController = SceptaAdmin._module.controller("SceptaAdmin.SceptaAdminController", ['$scope', '$http', function ($scope, $http) {
+        $http.get('/scepta-server/design').success(function (data) {
+            $scope.organizations = data;
+        });
+    }]);
+})(SceptaAdmin || (SceptaAdmin = {}));
+
 angular.module("scepta-templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("plugins/scepta-admin/html/sceptaAdmin.html","<div class=\"row\">\n  <div class=\"col-md-12\" ng-controller=\"SceptaAdmin.SceptaAdminController\">\n\n    <ul class=\"nav nav-tabs\">\n        <li ng-repeat=\"org in organizations\"><h1>{{org.name}}</h1>\n            <p><i>{{org.description}}</i></p>\n        </li>\n    </ui>\n\n  </div>\n</div>\n");
-$templateCache.put("plugins/scepta-design/html/endpoint.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.EndpointController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li><a href=\"/design/{{organizationName}}/{{policyGroupName}}\">{{policyGroupName}}</a></li>\n      <li class=\"active\">{{endpointName}}</li>\n    </ol>\n\n    <h1><b>{{endpointName}}</b> <span style=\"color:grey\">Endpoint</span></h1>\n    <a href=\"#\" editable-textarea=\"endpoint.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updateEndpoint()\">\n        <pre><i>{{ endpoint.description || \'No description\' }}</i></pre>\n    </a>\n\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-9\">\n\n          <form class=\"form-horizontal\">\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\" for=\"endpoint-uri\">URI</label>\n              <div class=\"col-md-6\">\n                <input type=\"text\" id=\"endpoint-uri\" class=\"form-control\" ng-model=\"editable.uri\" >\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Characteristics</label>\n              <div class=\"col-md-6\">\n<select ng-options=\"type as characteristic.type for characteristic in editable.characteristics\" \n   ng-model=\"selectedCharacteristic\" ng-change=\"updateCharacteristic()\"></select>\n<!--\n                <select name=\"users\" multiple>\n                  <option ng-repeat=\"c in editable.characteristics\" value=\"{{c.type}}\">{{c.type}}</option>\n                </select>\n-->\n              </div>\n              <div class=\"col-md-10 col-md-offset-2\">\n                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addCharacteristic()\" ><span class=\"pficon pficon-add\"></span></button>\n                <button type=\"button\" class=\"btn btn-default \"ng-click=\"removeCharacteristic()\" ><span class=\"pficon pficon-remove\"></span></button>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Consumer Options</label>\n              <div class=\"col-md-6\">\n                <table class=\"table table-hover\">\n                  <thead>\n                    <tr>\n                      <th>Name</th>\n                      <th>Value</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr ng-repeat=\"(key, value) in editable.consumerOptions\" >\n                      <td>{{key}}</td>\n                      <td>{{value}}</td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Producer Options</label>\n              <div class=\"col-md-6\">\n                <table class=\"table table-hover\">\n                  <thead>\n                    <tr>\n                      <th>Name</th>\n                      <th>Value</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr ng-repeat=\"(key, value) in editable.producerOptions\" >\n                      <td>{{key}}</td>\n                      <td>{{value}}</td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div class=\"col-md-10 col-md-offset-2\">\n                <button type=\"button\" class=\"btn btn-primary\" ng-click=\"update()\" >Save</button>\n                <button type=\"button\" class=\"btn btn-default \"ng-click=\"reset()\" >Cancel</button>\n              </div>\n            </div>\n          </form>\n\n\n\n\n\n        </div>\n        <div class=\"col-sm-4 col-md-3 sidebar-pf sidebar-pf-right\">\n          <div class=\"sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right\">\n            <div class=\"actions pull-right\">\n              <button type=\"button\" class=\"btn btn-default\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"><span class=\"pficon pficon-add\"></span></button>\n            </div>\n            <h2 class=\"h5\">Dependencies</h2>\n            <div class=\"collapse\" id=\"addEndpointDependencyForm\">\n              <div class=\"well\">\n                 <form novalidate class=\"simple-form\">\n                   Group ID: <input type=\"text\" ng-model=\"dependency.groupId\" /><br />\n                   Artifact ID: <input type=\"text\" ng-model=\"dependency.artifactId\" /><br />\n                   Version: <input type=\"text\" ng-model=\"dependency.version\" /><br />\n                   <input type=\"button\" value=\"Cancel\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"/>\n                   <input type=\"submit\" ng-click=\"addDependency()\" value=\"Add\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"/>\n                 </form>\n              </div>\n            </div>\n          </div>\n          <ul class=\"list-group\">\n            <li ng-repeat=\"dep in endpoint.dependencies | orderBy:dependencyOrderProp\">\n              <h3>{{dep.artifactId}} <button type=\"button\" class=\"btn btn-default\" dependency=\"{{dep}}\" ng-click=\"removeDependency($event)\"><span class=\"pficon pficon-remove\"></span></button></h3>\n              <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>\n            </li>\n          </ul>\n        </div>\n      </div>\n  </div>\n</div>\n");
+$templateCache.put("plugins/scepta-design/html/endpoint.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.EndpointController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li><a href=\"/design/{{organizationName}}/{{policyGroupName}}\">{{policyGroupName}}</a></li>\n      <li class=\"active\">{{endpointName}}</li>\n    </ol>\n\n    <h1><b>{{endpointName}}</b> <span style=\"color:grey\">Endpoint</span></h1>\n    <a href=\"#\" editable-textarea=\"endpoint.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updateEndpoint()\">\n        <pre><i>{{ endpoint.description || \'No description\' }}</i></pre>\n    </a>\n\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-9\">\n\n          <form class=\"form-horizontal\">\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\" for=\"endpoint-uri\">URI</label>\n              <div class=\"col-md-6\">\n                <input type=\"text\" id=\"endpoint-uri\" class=\"form-control\" ng-model=\"editable.uri\" >\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Characteristics</label>\n              <div class=\"col-md-6\">\n<select ng-options=\"type as characteristic.type for characteristic in editable.characteristics\" \n   ng-model=\"selectedCharacteristic\" ng-change=\"updateCharacteristic()\"></select>\n<!--\n                <select name=\"users\" multiple>\n                  <option ng-repeat=\"c in editable.characteristics\" value=\"{{c.type}}\">{{c.type}}</option>\n                </select>\n-->\n              </div>\n              <div class=\"col-md-10 col-md-offset-2\">\n                <button type=\"button\" class=\"btn btn-default\" ng-click=\"addCharacteristic()\" ><span class=\"pficon pficon-add\"></span></button>\n                <button type=\"button\" class=\"btn btn-default \"ng-click=\"removeCharacteristic()\" ><span class=\"pficon pficon-remove\"></span></button>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Consumer Options</label>\n              <div class=\"col-md-6\">\n                <table class=\"table table-hover\">\n                  <thead>\n                    <tr>\n                      <th>Name</th>\n                      <th>Value</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr ng-repeat=\"(key, value) in editable.consumerOptions\" ng-click=\"selectedConsumerOption();\">\n                      <td>{{key}}</td>\n                      <td>{{value}}</td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div>\n                Name: <input type=\"text\" ng-model=\"editConsumerOption.key\" /><br />\n                Value: <input type=\"text\" ng-model=\"editConsumerOption.value\" /><br />\n                <button ng-click=\"updateConsumerOption()\" value=\"Update\" ng-disabled=\"editConsumerOption == undefined\">Update</button>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <label class=\"col-md-2 control-label\">Producer Options</label>\n              <div class=\"col-md-6\">\n                <table class=\"table table-hover\">\n                  <thead>\n                    <tr>\n                      <th>Name</th>\n                      <th>Value</th>\n                    </tr>\n                  </thead>\n                  <tbody>\n                    <tr ng-repeat=\"(key, value) in editable.producerOptions\" ng-click=\"selectedProducerOption();\">\n                      <td>{{key}}</td>\n                      <td>{{value}}</td>\n                    </tr>\n                  </tbody>\n                </table>\n              </div>\n              <div>\n                Name: <input type=\"text\" ng-model=\"editProducerOption.key\" /><br />\n                Value: <input type=\"text\" ng-model=\"editProducerOption.value\" /><br />\n                <button ng-click=\"updateProducerOption()\" value=\"Update\" ng-disabled=\"editProducerOption == undefined\">Update</button>\n              </div>\n            </div>\n            <div class=\"form-group\">\n              <div class=\"col-md-10 col-md-offset-2\">\n                <button type=\"button\" class=\"btn btn-primary\" ng-click=\"update()\" >Save</button>\n                <button type=\"button\" class=\"btn btn-default \"ng-click=\"reset()\" >Cancel</button>\n              </div>\n            </div>\n          </form>\n\n\n\n\n\n        </div>\n        <div class=\"col-sm-4 col-md-3 sidebar-pf sidebar-pf-right\">\n          <div class=\"sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right\">\n            <div class=\"actions pull-right\">\n              <button type=\"button\" class=\"btn btn-default\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"><span class=\"pficon pficon-add\"></span></button>\n            </div>\n            <h2 class=\"h5\">Dependencies</h2>\n            <div class=\"collapse\" id=\"addEndpointDependencyForm\">\n              <div class=\"well\">\n                 <form novalidate class=\"simple-form\">\n                   Group ID: <input type=\"text\" ng-model=\"dependency.groupId\" /><br />\n                   Artifact ID: <input type=\"text\" ng-model=\"dependency.artifactId\" /><br />\n                   Version: <input type=\"text\" ng-model=\"dependency.version\" /><br />\n                   <input type=\"button\" value=\"Cancel\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"/>\n                   <input type=\"submit\" ng-click=\"addDependency()\" value=\"Add\" data-toggle=\"collapse\" href=\"#addEndpointDependencyForm\" aria-expanded=\"false\" aria-controls=\"addEndpointDependencyForm\"/>\n                 </form>\n              </div>\n            </div>\n          </div>\n          <ul class=\"list-group\">\n            <li ng-repeat=\"dep in endpoint.dependencies | orderBy:dependencyOrderProp\">\n              <h3>{{dep.artifactId}} <button type=\"button\" class=\"btn btn-default\" dependency=\"{{dep}}\" ng-click=\"removeDependency($event)\"><span class=\"pficon pficon-remove\"></span></button></h3>\n              <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>\n            </li>\n          </ul>\n        </div>\n      </div>\n  </div>\n</div>\n");
 $templateCache.put("plugins/scepta-design/html/organization.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.OrganizationController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li class=\"active\">{{organizationName}}</li>\n    </ol>\n\n    <h1><b>{{organizationName}}</b> <span style=\"color:grey\">Organization</span></h1>\n\n    <a href=\"#\" editable-textarea=\"organization.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updateOrganization()\">\n        <pre><i>{{ organization.description || \'No description\' }}</i></pre>\n    </a>\n\n    <button type=\"button\" class=\"btn btn-default\" data-toggle=\"tooltip\" data-placement=\"right\" title=\"\" data-original-title=\"Import policy group\"><span class=\"pficon pficon-import\"></span></button>\n\n    <p></p>\n    <p>List of policy groups for organization {{organizationName}}</p>\n    <ul>\n      <li ng-repeat=\"pg in policygroups | orderBy:nameOrderProp\">\n        <a href=\"/design/{{organizationName}}/{{pg.name}}\">{{pg.name}}</a>\n        <p><i>{{pg.description}}</i></p>\n      </li>\n    </ul>\n\n  </div>\n</div>\n");
 $templateCache.put("plugins/scepta-design/html/organizations.html","<div class=\"row\">\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.OrganizationsController\">\n    <h1><span style=\"color:grey\">Organizations</span></h1>\n\n    <ul>\n      <li ng-repeat=\"org in organizations | orderBy:nameOrderProp\">\n        <a href=\"/design/{{org.name}}\">{{org.name}}</a>\n        <p>{{org.description}}</p>\n      </li>\n    </ul>\n  </div>\n</div>\n");
 $templateCache.put("plugins/scepta-design/html/policy.html","<div class=\"row\">\n\n  <div class=\"col-md-12\" ng-controller=\"SceptaDesign.PolicyController\">\n    <ol class=\"breadcrumb\">\n      <li><a href=\"/design\">Organizations</a></li>\n      <li><a href=\"/design/{{organizationName}}\">{{organizationName}}</a></li>\n      <li><a href=\"/design/{{organizationName}}/{{policyGroupName}}\">{{policyGroupName}}</a></li>\n      <li class=\"active\">{{policyName}}</li>\n    </ol>\n\n    <h1><b>{{policyName}}</b> <span style=\"color:grey\">Policy</span></h1>\n    <a href=\"#\" editable-textarea=\"policy.description\" e-rows=\"7\" e-cols=\"120\" onaftersave=\"updatePolicy()\">\n        <pre><i>{{ policy.description || \'No description\' }}</i></pre>\n    </a>\n\n      <div class=\"row\">\n        <div class=\"col-sm-8 col-md-9\">\n          <ui-codemirror ui-codemirror-opts=\"editorOptions\" ng-model=\"policyDefinition\" ></ui-codemirror>\n        </div>\n        <div class=\"col-sm-4 col-md-3 sidebar-pf sidebar-pf-right\">\n          <div class=\"sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right\">\n            <div class=\"actions pull-right\">\n              <button type=\"button\" class=\"btn btn-default\" data-toggle=\"collapse\" href=\"#addResourceForm\" aria-expanded=\"false\" aria-controls=\"addResourceForm\"><span class=\"pficon pficon-add\"></span></button>\n            </div>\n            <h2 class=\"h5\">Resources</h2>\n            <div class=\"collapse\" id=\"addResourceForm\">\n              <div class=\"well\">\n                 <form novalidate class=\"simple-form\">\n                   Name: <input type=\"text\" ng-model=\"resource.name\" /><br />\n                   Description: <input type=\"description\" ng-model=\"resource.description\" /><br />\n                   <input type=\"button\" value=\"Cancel\" data-toggle=\"collapse\" href=\"#addResourceForm\" aria-expanded=\"false\" aria-controls=\"addResourceForm\"/>\n                   <input type=\"submit\" ng-click=\"addResource(resource)\" value=\"Add\" data-toggle=\"collapse\" href=\"#addResourceForm\" aria-expanded=\"false\" aria-controls=\"addResourceForm\"/>\n                 </form>\n              </div>\n            </div>\n          </div>\n          <ul class=\"list-group\">\n            <li ng-repeat=\"res in policy.resources | orderBy:resourceOrderProp\">\n              <h3><a href=\"/design/{{organizationName}}/{{policyGroupName}}/policy/{{policyName}}/{{res.name}}\">{{res.name}}</a> <button type=\"button\" class=\"btn btn-default\" resource=\"{{res.name}}\" ng-click=\"removeResource($event)\"><span class=\"pficon pficon-remove\"></span></button></h3>\n              <p><i>{{res.description}}</i></p>\n            </li>\n          </ul>\n          <div class=\"sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right\">\n            <div class=\"actions pull-right\">\n              <button type=\"button\" class=\"btn btn-default\" data-toggle=\"collapse\" href=\"#addDependencyForm\" aria-expanded=\"false\" aria-controls=\"addDependencyForm\"><span class=\"pficon pficon-add\"></span></button>\n            </div>\n            <h2 class=\"h5\">Dependencies</h2>\n            <div class=\"collapse\" id=\"addDependencyForm\">\n              <div class=\"well\">\n                 <form novalidate class=\"simple-form\">\n                   Group ID: <input type=\"text\" ng-model=\"dependency.groupId\" /><br />\n                   Artifact ID: <input type=\"text\" ng-model=\"dependency.artifactId\" /><br />\n                   Version: <input type=\"text\" ng-model=\"dependency.version\" /><br />\n                   <input type=\"button\" value=\"Cancel\" data-toggle=\"collapse\" href=\"#addDependencyForm\" aria-expanded=\"false\" aria-controls=\"addDependencyForm\"/>\n                   <input type=\"submit\" ng-click=\"addDependency()\" value=\"Add\" data-toggle=\"collapse\" href=\"#addDependencyForm\" aria-expanded=\"false\" aria-controls=\"addDependencyForm\"/>\n                 </form>\n              </div>\n            </div>\n          </div>\n          <ul class=\"list-group\">\n            <li ng-repeat=\"dep in policy.dependencies | orderBy:dependencyOrderProp\">\n              <h3>{{dep.artifactId}} <button type=\"button\" class=\"btn btn-default\" dependency=\"{{dep}}\" ng-click=\"removeDependency($event)\"><span class=\"pficon pficon-remove\"></span></button></h3>\n              <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>\n            </li>\n          </ul>\n        </div>\n      </div>\n  </div>\n\n</div>\n");
