@@ -6,7 +6,7 @@
       <li class="active">{{organizationName}}</li>
     </ol>
 
-    <h1><b>{{organizationName}}</b> <a style="color:grey">Organization</a></h1>
+    <h1><b>{{organizationName}}</b> <span style="color:grey">Organization</span></h1>
 
     <a href="#" editable-textarea="organization.description" e-rows="7" e-cols="120" onaftersave="updateOrganization()">
         <pre><i>{{ organization.description || 'No description' }}</i></pre>

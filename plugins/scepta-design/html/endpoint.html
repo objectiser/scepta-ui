@@ -8,7 +8,7 @@
       <li class="active">{{endpointName}}</li>
     </ol>
 
-    <h1><b>{{endpointName}}</b> <a style="color:grey">Endpoint</a></h1>
+    <h1><b>{{endpointName}}</b> <span style="color:grey">Endpoint</span></h1>
     <a href="#" editable-textarea="endpoint.description" e-rows="7" e-cols="120" onaftersave="updateEndpoint()">
         <pre><i>{{ endpoint.description || 'No description' }}</i></pre>
     </a>
@@ -23,43 +23,22 @@
                 <input type="text" id="endpoint-uri" class="form-control" ng-model="editable.uri" >
               </div>
             </div>
-<!--
             <div class="form-group">
-              <label class="col-md-2 control-label">Posuere</label>
+              <label class="col-md-2 control-label">Characteristics</label>
               <div class="col-md-6">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-                    Proin lobortis auctor tortor et posuere
-                  </label>
-                </div>
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-                    Duis eu ipsum metus
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-2 control-label" for="boostrapSelect">Vestibulum</label>
-              <div class="col-md-10">
-                <select class="selectpicker" multiple data-selected-text-format="count>3" id="boostrapSelect">
-                  <option>Mustard</option>
-                  <option>Ketchup</option>
-                  <option>Relish</option>
-                  <option>Onions</option>
-                  <option>Mushrooms</option>
-                  <option>Pickles</option>
-                  <option>Mayonnaise</option>
-                  <option data-divider="true"></option>
-                  <option data-subtext="Hot">Tabasco</option>
-                  <option data-subtext="Hotter">Sriracha</option>
-                  <option data-subtext="Hottest">Wasabi</option>
+<select ng-options="type as characteristic.type for characteristic in editable.characteristics" 
+   ng-model="selectedCharacteristic" ng-change="updateCharacteristic()"></select>
+<!--
+                <select name="users" multiple>
+                  <option ng-repeat="c in editable.characteristics" value="{{c.type}}">{{c.type}}</option>
                 </select>
+-->
+              </div>
+              <div class="col-md-10 col-md-offset-2">
+                <button type="button" class="btn btn-default" ng-click="addCharacteristic()" ><span class="pficon pficon-add"></span></button>
+                <button type="button" class="btn btn-default "ng-click="removeCharacteristic()" ><span class="pficon pficon-remove"></span></button>
               </div>
             </div>
--->
             <div class="form-group">
               <div class="col-md-10 col-md-offset-2">
                 <button type="button" class="btn btn-primary" ng-click="update()" >Save</button>
