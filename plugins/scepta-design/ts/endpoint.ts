@@ -11,12 +11,13 @@ module SceptaDesign {
       $scope.policyGroup.endpoints.forEach(function(ep) {
         if (ep.name === $scope.endpointName) {
           $scope.endpoint = ep;
+          $scope.reset();
         }
       });
     });
 
     $scope.updatePolicyGroup = function() {
-      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
+      return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policyGroup);
     };
 
     $scope.dependencyOrderProp = 'artifactId';
@@ -39,6 +40,17 @@ module SceptaDesign {
           }
         }
       }
+    };
+
+    $scope.update = function() {
+      $scope.policyGroup.endpoints.remove($scope.endpoint);
+      $scope.endpoint = angular.copy($scope.editable);
+      $scope.policyGroup.endpoints.push($scope.endpoint);
+      $scope.updatePolicyGroup();
+    };
+
+    $scope.reset = function() {
+      $scope.editable = angular.copy($scope.endpoint);
     };
 
   }]);

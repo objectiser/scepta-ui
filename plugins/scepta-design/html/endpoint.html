@@ -15,6 +15,63 @@
 
       <div class="row">
         <div class="col-sm-8 col-md-9">
+
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-md-2 control-label" for="endpoint-uri">URI</label>
+              <div class="col-md-6">
+                <input type="text" id="endpoint-uri" class="form-control" ng-model="editable.uri" >
+              </div>
+            </div>
+<!--
+            <div class="form-group">
+              <label class="col-md-2 control-label">Posuere</label>
+              <div class="col-md-6">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                    Proin lobortis auctor tortor et posuere
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Duis eu ipsum metus
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-2 control-label" for="boostrapSelect">Vestibulum</label>
+              <div class="col-md-10">
+                <select class="selectpicker" multiple data-selected-text-format="count>3" id="boostrapSelect">
+                  <option>Mustard</option>
+                  <option>Ketchup</option>
+                  <option>Relish</option>
+                  <option>Onions</option>
+                  <option>Mushrooms</option>
+                  <option>Pickles</option>
+                  <option>Mayonnaise</option>
+                  <option data-divider="true"></option>
+                  <option data-subtext="Hot">Tabasco</option>
+                  <option data-subtext="Hotter">Sriracha</option>
+                  <option data-subtext="Hottest">Wasabi</option>
+                </select>
+              </div>
+            </div>
+-->
+            <div class="form-group">
+              <div class="col-md-10 col-md-offset-2">
+                <button type="button" class="btn btn-primary" ng-click="update()" >Save</button>
+                <button type="button" class="btn btn-default "ng-click="reset()" >Cancel</button>
+              </div>
+            </div>
+          </form>
+
+
+
+
+
         </div>
         <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
           <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
