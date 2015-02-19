@@ -38,7 +38,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="dep in resource.dependencies | orderBy:dependencyOrderProp">
-              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-delete"></span></button></h3>
               <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>
             </li>
           </ul>

@@ -36,7 +36,7 @@
               </div>
               <div class="col-md-10 col-md-offset-2">
                 <button type="button" class="btn btn-default" ng-click="addCharacteristic()" ><span class="pficon pficon-add"></span></button>
-                <button type="button" class="btn btn-default "ng-click="removeCharacteristic()" ><span class="pficon pficon-remove"></span></button>
+                <button type="button" class="btn btn-default "ng-click="removeCharacteristic()" ><span class="pficon pficon-delete"></span></button>
               </div>
             </div>
             <div class="form-group">
@@ -45,22 +45,24 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Value</th>
+                      <th width="40%">Name</th>
+                      <th width="40%">Value</th>
+                      <th width="20%"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="(key, value) in editable.consumerOptions" ng-click="selectedConsumerOption();">
+                    <tr ng-repeat="(key, value) in editable.consumerOptions">
                       <td>{{key}}</td>
                       <td>{{value}}</td>
+                      <td><button ng-click="selectedConsumerOption()" value="Edit"><span class="pficon pficon-edit"></span></button><button ng-click="deleteConsumerOption()" value="Delete"><span class="pficon pficon-delete"></span></button></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div>
+              <div class="col-md-3">
                 Name: <input type="text" ng-model="editConsumerOption.key" /><br />
                 Value: <input type="text" ng-model="editConsumerOption.value" /><br />
-                <button ng-click="updateConsumerOption()" value="Update" ng-disabled="editConsumerOption == undefined">Update</button>
+                <button ng-click="updateConsumerOption()" value="Update" ng-disabled="editConsumerOption == undefined"><span class="pficon pficon-refresh"></span></button>
               </div>
             </div>
             <div class="form-group">
@@ -69,22 +71,24 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Name</th>
-                      <th>Value</th>
+                      <th width="40%">Name</th>
+                      <th width="40%">Value</th>
+                      <th width="20%"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="(key, value) in editable.producerOptions" ng-click="selectedProducerOption();">
+                    <tr ng-repeat="(key, value) in editable.producerOptions">
                       <td>{{key}}</td>
                       <td>{{value}}</td>
+                      <td><button ng-click="selectedProducerOption()" value="Edit"><span class="pficon pficon-edit"></span></button><button ng-click="deleteProducerOption()" value="Delete"><span class="pficon pficon-delete"></span></button></td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div>
+              <div class="col-md-3">
                 Name: <input type="text" ng-model="editProducerOption.key" /><br />
                 Value: <input type="text" ng-model="editProducerOption.value" /><br />
-                <button ng-click="updateProducerOption()" value="Update" ng-disabled="editProducerOption == undefined">Update</button>
+                <button ng-click="updateProducerOption()" value="Update" ng-disabled="editProducerOption == undefined"><span class="pficon pficon-refresh"></span></button>
               </div>
             </div>
             <div class="form-group">
@@ -120,7 +124,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="dep in endpoint.dependencies | orderBy:dependencyOrderProp">
-              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-delete"></span></button></h3>
               <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>
             </li>
           </ul>

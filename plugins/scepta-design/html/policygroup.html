@@ -45,7 +45,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="ep in policygroup.endpoints | orderBy:nameOrderProp">
-              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/endpoint/{{ep.name}}">{{ep.name}}</a> <button type="button" class="btn btn-default" endpoint="{{ep.name}}" ng-click="removeEndpoint($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/endpoint/{{ep.name}}">{{ep.name}}</a> <button type="button" class="btn btn-default" endpoint="{{ep.name}}" ng-click="removeEndpoint($event)"><span class="pficon pficon-delete"></span></button></h3>
               <p><i>{{ep.description}}</i></p>
             </li>
           </ul>

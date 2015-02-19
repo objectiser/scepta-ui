@@ -68,6 +68,10 @@ module SceptaDesign {
       $scope.editConsumerOption = undefined;
     };
 
+    $scope.deleteConsumerOption = function() {
+      delete $scope.editable.consumerOptions[this.key];
+    };
+
     $scope.selectedProducerOption = function() {
       $scope.editProducerOption = {};
       $scope.editProducerOption.originalKey = this.key;
@@ -81,6 +85,10 @@ module SceptaDesign {
       }
       $scope.editable.producerOptions[$scope.editProducerOption.key] = $scope.editProducerOption.value;
       $scope.editProducerOption = undefined;
+    };
+
+    $scope.deleteProducerOption = function() {
+      delete $scope.editable.producerOptions[this.key];
     };
 
   }]);

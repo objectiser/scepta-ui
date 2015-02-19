@@ -36,7 +36,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="res in policy.resources | orderBy:resourceOrderProp">
-              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{policyName}}/{{res.name}}">{{res.name}}</a> <button type="button" class="btn btn-default" resource="{{res.name}}" ng-click="removeResource($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3><a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{policyName}}/{{res.name}}">{{res.name}}</a> <button type="button" class="btn btn-default" resource="{{res.name}}" ng-click="removeResource($event)"><span class="pficon pficon-delete"></span></button></h3>
               <p><i>{{res.description}}</i></p>
             </li>
           </ul>
@@ -59,7 +59,7 @@
           </div>
           <ul class="list-group">
             <li ng-repeat="dep in policy.dependencies | orderBy:dependencyOrderProp">
-              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-remove"></span></button></h3>
+              <h3>{{dep.artifactId}} <button type="button" class="btn btn-default" dependency="{{dep}}" ng-click="removeDependency($event)"><span class="pficon pficon-delete"></span></button></h3>
               <p><i>{{dep.groupId}}</i> [{{dep.version}}]</p>
             </li>
           </ul>
