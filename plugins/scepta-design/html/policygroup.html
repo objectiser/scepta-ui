@@ -19,11 +19,23 @@
       <div class="row">
         <div class="col-sm-8 col-md-9">
           <p></p>
-          <p>List of policies for policy group {{policyGroupName}}</p>
+          <h3>Policies</h3>
           <ul>
             <li ng-repeat="pol in policies | orderBy:nameOrderProp">
               <a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{pol.name}}">{{pol.name}}</a>
               <p><i>{{pol.description}}</i></p>
+            </li>
+          </ul>
+          <p></p>
+          <p></p>
+          <p></p>
+          <br/>
+          <h3>Tags</h3>
+          <ul>
+            <li ng-repeat="tag in tags">
+              <a ng-click="downloadDeployment()">{{tag.name}}</a> <span ng-if="tag.buildStatus == 'Successful'" class="pficon pficon-ok"></span><span ng-if="tag.buildStatus == 'Failed'" class="pficon-layered > pficon pficon-error-octagon + pficon pficon-error-exclamation"></span><span ng-if="tag.buildStatus != 'Successful' && tag.buildStatus != 'Failed'" class="pficon-layered > pficon pficon-help"></span>
+              <p><i>{{tag.description}}</i></p>
+              <h5>Created by {{tag.createdBy}} build status {{tag.buildStatus}}</h5>
             </li>
           </ul>
         </div>

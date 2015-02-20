@@ -13,12 +13,20 @@ module SceptaDesign {
       $scope.policies = data;
     });
 
+    $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/tag').success(function(data) {
+      $scope.tags = data;
+    });
+
     $scope.updatePolicyGroup = function() {
       return $http.put('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName, $scope.policygroup);
     };
 
     $scope.exportPolicyGroup = function() {
       window.open('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export', 'export');
+    };
+
+    $scope.downloadDeployment = function() {
+      window.open('/scepta-server/deployment/'+$scope.organizationName+'/'+$scope.policyGroupName+'/'+this.tag.name, 'download');
     };
 
     $scope.buildPolicyGroup = function() {
