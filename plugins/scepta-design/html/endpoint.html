@@ -30,9 +30,14 @@
                          ng-options="opt as opt.type for opt in editable.characteristics">
                 </select>
 
-                <button type="button" class="btn btn-default" ng-click="addCharacteristic()" ><span class="pficon pficon-add"></span></button>
-                <button type="button" class="btn btn-default "ng-click="deleteCharacteristic()" ><span class="pficon pficon-delete"></span></button>
-                <br/>
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pficon pficon-add"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                    <li ng-repeat="type in characteristicTypes" role="presentation" ng-click="addCharacteristic()" ><a role="menuitem" tabindex="-1" href="#">{{type}}</a></li>
+                  </ul>
+
+                  <button type="button" class="btn btn-default "ng-click="deleteCharacteristic()" ><span class="pficon pficon-delete"></span></button>
+                </div>
                 <br/>
 
                 <table class="table table-hover">
@@ -53,6 +58,7 @@
                 </table>
               </div>
               <div class="col-md-3"><br/><br/>
+                <br/>
                 Name: <input type="text" ng-model="editCharacteristicProperty.key" /><br />
                 Value: <input type="text" ng-model="editCharacteristicProperty.value" /><br />
                 <button ng-click="updateCharacteristicProperty()" value="Update" ng-disabled="editCharacteristicProperty == undefined"><span class="pficon pficon-refresh"></span></button>

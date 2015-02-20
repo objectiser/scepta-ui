@@ -53,6 +53,8 @@ module SceptaDesign {
       $scope.editable = angular.copy($scope.endpoint);
     };
 
+$scope.characteristicTypes = [ "Type1", "Type2" ];
+
     $scope.selectedCharacteristicProperty = function() {
       $scope.editCharacteristicProperty = {};
       $scope.editCharacteristicProperty.originalKey = this.key;
@@ -72,10 +74,16 @@ module SceptaDesign {
       delete $scope.selectedCharacteristic.properties[this.key];
     };
 
+    $scope.addCharacteristic = function() {
+      $scope.selectedCharacteristic = { "type": this.type, "properties": {} };
+      $scope.editable.characteristics.push($scope.selectedCharacteristic);
+    }
+
     $scope.deleteCharacteristic = function() {
       if ($scope.selectedCharacteristic !== undefined) {
         $scope.editable.characteristics.remove($scope.selectedCharacteristic);
         $scope.selectedCharacteristic = undefined;
+        $scope.editCharacteristicProperty = undefined;
       }
     }
 
