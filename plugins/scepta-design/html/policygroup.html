@@ -33,9 +33,10 @@
           <h3>Tags</h3>
           <ul>
             <li ng-repeat="tag in tags">
-              <a ng-click="downloadDeployment()">{{tag.name}}</a> <span ng-if="tag.buildStatus == 'Successful'" class="pficon pficon-ok"></span><span ng-if="tag.buildStatus == 'Failed'" class="pficon-layered > pficon pficon-error-octagon + pficon pficon-error-exclamation"></span><span ng-if="tag.buildStatus != 'Successful' && tag.buildStatus != 'Failed'" class="pficon-layered > pficon pficon-help"></span>
+              <a ng-click="downloadDeployment()" ng-if="tag.buildStatus == 'Successful'" >{{tag.name}}  <span class="pficon pficon-ok"></span></a>
+              <span ng-if="tag.buildStatus != 'Successful'" >{{tag.name}} <span ng-if="tag.buildStatus == 'Failed'" class="pficon-layered > pficon pficon-error-octagon + pficon pficon-error-exclamation"></span><span ng-if="tag.buildStatus != 'Successful' && tag.buildStatus != 'Failed'" class="pficon-layered > pficon pficon-help"></span></span>
               <p><i>{{tag.description}}</i></p>
-              <h5>Created by {{tag.createdBy}} build status {{tag.buildStatus}}</h5>
+              <h5>Created by {{tag.createdBy}} on {{tag.createdTimestamp | date:'medium'}}</h5>
             </li>
           </ul>
         </div>
