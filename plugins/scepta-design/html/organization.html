@@ -12,12 +12,13 @@
         <pre><i>{{ organization.description || 'No description' }}</i></pre>
     </a>
 
-    <input type="file" id="policyGroupImportFile" />
-
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Import policy group"><span class="pficon pficon-import"></span></button>
+    <div class="fileUpload btn btn-primary" data-toggle="tooltip" data-placement="right" title="Import a Policy Group">
+      <span class="pficon pficon-import"></span>
+      <input type="file" class="upload" id="policyGroupImportFile" />
+    </div>
 
     <p></p>
-    <p>List of policy groups for organization {{organizationName}}</p>
+    <h3>Policy Groups</h3>
     <ul>
       <li ng-repeat="pg in policygroups | orderBy:nameOrderProp">
         <a href="/design/{{organizationName}}/{{pg.name}}">{{pg.name}}</a>
