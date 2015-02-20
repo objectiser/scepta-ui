@@ -12,9 +12,13 @@
         <pre><i>{{ policygroup.description || 'No description' }}</i></pre>
     </a>
 
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Export policy group" ng-click="exportPolicyGroup()"><span class="pficon pficon-export"></span></button>
+    <div class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Export Policy Group" ng-click="exportPolicyGroup()" >
+      <span class="pficon pficon-export"></span>
+    </div>
 
-    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Build policy group" ng-click="buildPolicyGroup()"><span class="pficon pficon-save"></span></button>
+    <div class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Build Policy Group" ng-click="buildPolicyGroup()" >
+      <span class="pficon pficon-save"></span>
+    </div>
 
       <div class="row">
         <div class="col-sm-8 col-md-9">
