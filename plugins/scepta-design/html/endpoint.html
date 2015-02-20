@@ -33,7 +33,7 @@
                 <div class="dropdown">
                   <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"><span class="pficon pficon-add"></span></button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                    <li ng-repeat="type in characteristicTypes" role="presentation" ng-click="addCharacteristic()" ><a role="menuitem" tabindex="-1" href="#">{{type}}</a></li>
+                    <li ng-repeat="type in characteristicTypes" role="presentation" ng-click="addCharacteristic()" ><a role="menuitem" tabindex="-1" href="#">{{type.name}}</a></li>
                   </ul>
 
                   <button type="button" class="btn btn-default "ng-click="deleteCharacteristic()" ><span class="pficon pficon-delete"></span></button>
