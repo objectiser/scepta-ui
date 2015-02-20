@@ -14,17 +14,18 @@
 
     <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Export policy group" ng-click="exportPolicyGroup()"><span class="pficon pficon-export"></span></button>
 
+    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="" data-original-title="Build policy group" ng-click="buildPolicyGroup()"><span class="pficon pficon-save"></span></button>
+
       <div class="row">
         <div class="col-sm-8 col-md-9">
-    <p></p>
-    <p>List of policies for policy group {{policyGroupName}}</p>
-    <ul>
-      <li ng-repeat="pol in policies | orderBy:nameOrderProp">
-        <a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{pol.name}}">{{pol.name}}</a>
-        <p><i>{{pol.description}}</i></p>
-      </li>
-    </ul>
-
+          <p></p>
+          <p>List of policies for policy group {{policyGroupName}}</p>
+          <ul>
+            <li ng-repeat="pol in policies | orderBy:nameOrderProp">
+              <a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{pol.name}}">{{pol.name}}</a>
+              <p><i>{{pol.description}}</i></p>
+            </li>
+          </ul>
         </div>
         <div class="col-sm-4 col-md-3 sidebar-pf sidebar-pf-right">
           <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">

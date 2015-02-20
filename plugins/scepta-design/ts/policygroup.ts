@@ -21,6 +21,10 @@ module SceptaDesign {
       window.open('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/export', 'export');
     };
 
+    $scope.buildPolicyGroup = function() {
+      return $http.post('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/tag', "Tag description tbd", { "headers": { "Content-Type": "text/plain" } });
+    };
+
     $scope.nameOrderProp = 'name';
 
     $scope.addEndpoint = function() {
