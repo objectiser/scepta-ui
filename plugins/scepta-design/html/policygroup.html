@@ -23,7 +23,18 @@
       <div class="row">
         <div class="col-sm-8 col-md-9">
           <p></p>
-          <h3>Policies</h3>
+          <h3>Policies
+            <button type="button" class="btn btn-default" data-toggle="collapse" href="#addPolicyForm" aria-expanded="false" aria-controls="addPolicyForm"><span class="pficon pficon-add"></span></button></h3>
+          <div class="collapse" id="addPolicyForm">
+            <div class="well">
+               <form novalidate class="simple-form">
+                 Name: <input type="text" ng-model="newPolicy.name" /><br />
+                 Description: <input type="description" ng-model="newPolicy.description" /><br />
+                 <input type="button" value="Cancel" data-toggle="collapse" href="#addPolicyForm" aria-expanded="false" aria-controls="addPolicyForm"/>
+                 <input type="submit" ng-click="addPolicy()" value="Add" data-toggle="collapse" href="#addPolicyForm" aria-expanded="false" aria-controls="addPolicyForm"/>
+               </form>
+            </div>
+          </div>
           <ul>
             <li ng-repeat="pol in policies | orderBy:nameOrderProp">
               <a href="/design/{{organizationName}}/{{policyGroupName}}/policy/{{pol.name}}">{{pol.name}}</a>

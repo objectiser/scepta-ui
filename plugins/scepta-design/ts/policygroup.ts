@@ -33,6 +33,16 @@ module SceptaDesign {
       return $http.post('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/tag', "Tag description tbd", { "headers": { "Content-Type": "text/plain" } });
     };
 
+    $scope.addPolicy = function() {
+      $http.post('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy', $scope.newPolicy)
+        .success(function(data, status, headers, config) {
+        $http.get('/scepta-server/design/'+$scope.organizationName+'/group/'+$scope.policyGroupName+'/policy').success(function(data) {
+          $scope.policies = data;
+          $scope.newPolicy = new Object();
+        });
+      });
+    };
+
     $scope.nameOrderProp = 'name';
 
     $scope.addEndpoint = function() {
