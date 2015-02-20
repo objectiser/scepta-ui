@@ -53,6 +53,32 @@ module SceptaDesign {
       $scope.editable = angular.copy($scope.endpoint);
     };
 
+    $scope.selectedCharacteristicProperty = function() {
+      $scope.editCharacteristicProperty = {};
+      $scope.editCharacteristicProperty.originalKey = this.key;
+      $scope.editCharacteristicProperty.key = this.key;
+      $scope.editCharacteristicProperty.value = this.value;
+    };
+
+    $scope.updateCharacteristicProperty = function() {
+      if ($scope.editCharacteristicProperty.originalKey !== undefined) {
+       delete $scope.selectedCharacteristic.properties[$scope.editCharacteristicProperty.originalKey];
+      }
+      $scope.selectedCharacteristic.properties[$scope.editCharacteristicProperty.key] = $scope.editCharacteristicProperty.value;
+      $scope.editCharacteristicProperty = undefined;
+    };
+
+    $scope.deleteCharacteristicProperty = function() {
+      delete $scope.selectedCharacteristic.properties[this.key];
+    };
+
+    $scope.deleteCharacteristic = function() {
+      if ($scope.selectedCharacteristic !== undefined) {
+        $scope.editable.characteristics.remove($scope.selectedCharacteristic);
+        $scope.selectedCharacteristic = undefined;
+      }
+    }
+
     $scope.selectedConsumerOption = function() {
       $scope.editConsumerOption = {};
       $scope.editConsumerOption.originalKey = this.key;

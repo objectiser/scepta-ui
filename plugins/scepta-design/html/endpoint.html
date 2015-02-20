@@ -26,19 +26,38 @@
             <div class="form-group">
               <label class="col-md-2 control-label">Characteristics</label>
               <div class="col-md-6">
-<select ng-options="type as characteristic.type for characteristic in editable.characteristics" 
-   ng-model="selectedCharacteristic" ng-change="updateCharacteristic()"></select>
-<!--
-                <select name="users" multiple>
-                  <option ng-repeat="c in editable.characteristics" value="{{c.type}}">{{c.type}}</option>
+                <select ng-model="selectedCharacteristic"
+                         ng-options="opt as opt.type for opt in editable.characteristics">
                 </select>
--->
-              </div>
-              <div class="col-md-10 col-md-offset-2">
+
                 <button type="button" class="btn btn-default" ng-click="addCharacteristic()" ><span class="pficon pficon-add"></span></button>
-                <button type="button" class="btn btn-default "ng-click="removeCharacteristic()" ><span class="pficon pficon-delete"></span></button>
+                <button type="button" class="btn btn-default "ng-click="deleteCharacteristic()" ><span class="pficon pficon-delete"></span></button>
+                <br/>
+                <br/>
+
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th width="40%">Name</th>
+                      <th width="40%">Value</th>
+                      <th width="20%"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="(key, value) in selectedCharacteristic.properties">
+                      <td>{{key}}</td>
+                      <td>{{value}}</td>
+                      <td><button ng-click="selectedCharacteristicProperty()" value="Edit"><span class="pficon pficon-edit"></span></button><button ng-click="deleteCharacteristicProperty()" value="Delete"><span class="pficon pficon-delete"></span></button></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
+              <div class="col-md-3"><br/><br/>
+                Name: <input type="text" ng-model="editCharacteristicProperty.key" /><br />
+                Value: <input type="text" ng-model="editCharacteristicProperty.value" /><br />
+                <button ng-click="updateCharacteristicProperty()" value="Update" ng-disabled="editCharacteristicProperty == undefined"><span class="pficon pficon-refresh"></span></button>
+              </div>
+           </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Consumer Options</label>
               <div class="col-md-6">
