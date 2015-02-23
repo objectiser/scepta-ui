@@ -232,7 +232,11 @@ var SceptaDesign;
             if (f) {
                 var r = new FileReader();
                 r.onload = function (e) {
-                    $http.post('/scepta-server/design/' + $scope.organizationName + '/import', r.result);
+                    $http.post('/scepta-server/design/' + $scope.organizationName + '/import', r.result).success(function (data, status, headers, config) {
+                        $http.get('/scepta-server/design/' + $scope.organizationName + '/group').success(function (data) {
+                            $scope.policygroups = data;
+                        });
+                    });
                 };
                 r.readAsText(f);
             }
